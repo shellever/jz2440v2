@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+DNW_NAME="dnw"
+
+exec sudo "$DNW_PATH/$DNW_NAME" "$@"
+

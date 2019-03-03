@@ -1,0 +1,5 @@
+$ dnw ~/workspace/nfsroot/rootfs/test/dma/uImage 
+DNW usb device found!
+Size of file: 1848820 byte(s)
+Address of bootloader to receive data: 0x30000000
+Tx: 1848830/1848830, Percentage: 100.0%, Speed: 604.5KB/s, Time: 3.0S
