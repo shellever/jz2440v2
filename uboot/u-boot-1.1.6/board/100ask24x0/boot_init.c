@@ -56,7 +56,7 @@ static void s3c2410_wait_idle(void)
 {
     int i;
 	S3C2410_NAND * s3c2410nand = (S3C2410_NAND *)0x4e000000;
-	
+
     volatile unsigned char *p = (volatile unsigned char *)&s3c2410nand->NFSTAT;
     while(!(*p & BUSY))
         for(i=0; i<10; i++);
@@ -69,7 +69,7 @@ static void s3c2410_nand_select_chip(void)
 	S3C2410_NAND * s3c2410nand = (S3C2410_NAND *)0x4e000000;
 
     s3c2410nand->NFCONF &= ~(1<<11);
-    for(i=0; i<10; i++);    
+    for(i=0; i<10; i++);
 }
 
 /* 取消片选信号 */
@@ -95,7 +95,7 @@ static void s3c2410_write_addr(unsigned int addr)
     int i;
 	S3C2410_NAND * s3c2410nand = (S3C2410_NAND *)0x4e000000;
     volatile unsigned char *p = (volatile unsigned char *)&s3c2410nand->NFADDR;
-    
+
     *p = addr & 0xff;
     for(i=0; i<10; i++);
     *p = (addr >> 9) & 0xff;
@@ -144,7 +144,7 @@ static void s3c2440_nand_select_chip(void)
 	S3C2440_NAND * s3c2440nand = (S3C2440_NAND *)0x4e000000;
 
     s3c2440nand->NFCONT &= ~(1<<1);
-    for(i=0; i<10; i++);    
+    for(i=0; i<10; i++);
 }
 
 /* 取消片选信号 */
@@ -170,7 +170,7 @@ static void s3c2440_write_addr(unsigned int addr)
     int i;
 	S3C2440_NAND * s3c2440nand = (S3C2440_NAND *)0x4e000000;
     volatile unsigned char *p = (volatile unsigned char *)&s3c2440nand->NFADDR;
-    
+
     *p = addr & 0xff;
     for(i=0; i<10; i++);
     *p = (addr >> 9) & 0xff;
@@ -192,9 +192,9 @@ static void s3c2440_write_addr_lp(unsigned int addr)
 
 	col = addr & NAND_BLOCK_MASK_LP;
 	page = addr / NAND_SECTOR_SIZE_LP;
-	
+
     *p = col & 0xff;			/* Column Address A0~A7 */
-    for(i=0; i<10; i++);		
+    for(i=0; i<10; i++);
     *p = (col >> 8) & 0x0f;		/* Column Address A8~A11 */
     for(i=0; i<10; i++);
     *p = page & 0xff;			/* Row Address A12~A19 */
@@ -244,7 +244,7 @@ static void wait_idle(void)
 static void nand_select_chip(void)
 {
     int i;
-	
+
     /* 判断是S3C2410还是S3C2440 */
     if (isS3C2410)
 	{
@@ -254,7 +254,7 @@ static void nand_select_chip(void)
 	{
 	    s3c2440_nand_select_chip();
 	}
-	
+
     for(i=0; i<10; i++);
 }
 
@@ -268,7 +268,7 @@ static void nand_deselect_chip(void)
 	else
 	{
 	    s3c2440_nand_deselect_chip();
-	}	
+	}
 }
 
 static void write_cmd(int cmd)
@@ -281,7 +281,7 @@ static void write_cmd(int cmd)
 	else
 	{
 	    s3c2440_write_cmd(cmd);
-	}	
+	}
 }
 static void write_addr(unsigned int addr)
 {
@@ -293,7 +293,7 @@ static void write_addr(unsigned int addr)
 	else
 	{
 	    s3c2440_write_addr(addr);
-	}	
+	}
 }
 
 static void write_addr_lp(unsigned int addr)
@@ -306,7 +306,7 @@ static void write_addr_lp(unsigned int addr)
 	else
 	{
 	    s3c2440_write_addr_lp(addr);
-	}	
+	}
 }
 
 static unsigned char read_data(void)
@@ -319,7 +319,7 @@ static unsigned char read_data(void)
 	else
 	{
 	    return s3c2440_read_data();
-	}	
+	}
 }
 
 /* 初始化NAND Flash */
@@ -355,7 +355,7 @@ void nand_init_ll(void)
 void nand_read_ll(unsigned char *buf, unsigned long start_addr, int size)
 {
     int i, j;
-    
+
     if ((start_addr & NAND_BLOCK_MASK) || (size & NAND_BLOCK_MASK)) {
         return ;    /* 地址或长度不对齐 */
     }
@@ -379,7 +379,7 @@ void nand_read_ll(unsigned char *buf, unsigned long start_addr, int size)
 
     /* 取消片选信号 */
     nand_deselect_chip();
-    
+
     return ;
 }
 
@@ -390,7 +390,7 @@ void nand_read_ll(unsigned char *buf, unsigned long start_addr, int size)
 void nand_read_ll_lp(unsigned char *buf, unsigned long start_addr, int size)
 {
     int i, j;
-    
+
     if ((start_addr & NAND_BLOCK_MASK_LP) || (size & NAND_BLOCK_MASK_LP)) {
         return ;    /* 地址或长度不对齐 */
     }
@@ -415,7 +415,7 @@ void nand_read_ll_lp(unsigned char *buf, unsigned long start_addr, int size)
 
     /* 取消片选信号 */
     nand_deselect_chip();
-    
+
     return ;
 }
 
@@ -423,7 +423,7 @@ int bBootFrmNORFlash(void)
 {
     volatile unsigned int *pdw = (volatile unsigned int *)0;
     unsigned int dwVal;
-    
+
     /*
      * 无论是从NOR Flash还是从NAND Flash启动，
      * 地址0处为指令"b	Reset", 机器码为0xEA00000B，
@@ -434,7 +434,7 @@ int bBootFrmNORFlash(void)
      * 向地址0写入一个数据，然后读出来，如果没有改变的话就是NOR Flash
      */
 
-    dwVal = *pdw;       
+    dwVal = *pdw;
     *pdw = 0x12345678;
     if (*pdw != 0x12345678)
     {
@@ -514,12 +514,13 @@ void clock_init(void)
         clk_power->CLKDIVN = S3C2410_CLKDIV;
 
         /* change to asynchronous bus mod */
-        __asm__(    "mrc    p15, 0, r1, c1, c0, 0\n"    /* read ctrl register   */  
-                    "orr    r1, r1, #0xc0000000\n"      /* Asynchronous         */  
-                    "mcr    p15, 0, r1, c1, c0, 0\n"    /* write ctrl register  */  
-                    :::"r1"
-                    );
-        
+        __asm__(
+            "mrc    p15, 0, r1, c1, c0, 0\n"    /* read ctrl register   */
+            "orr    r1, r1, #0xc0000000\n"      /* Asynchronous         */
+            "mcr    p15, 0, r1, c1, c0, 0\n"    /* write ctrl register  */
+            :::"r1"
+        );
+
         /* to reduce PLL lock time, adjust the LOCKTIME register */
         clk_power->LOCKTIME = 0xFFFFFFFF;
 
@@ -541,11 +542,12 @@ void clock_init(void)
         clk_power->CLKDIVN = S3C2440_CLKDIV;
 
         /* change to asynchronous bus mod */
-        __asm__(    "mrc    p15, 0, r1, c1, c0, 0\n"    /* read ctrl register   */  
-                    "orr    r1, r1, #0xc0000000\n"      /* Asynchronous         */  
-                    "mcr    p15, 0, r1, c1, c0, 0\n"    /* write ctrl register  */  
-                    :::"r1"
-                    );
+        __asm__(    
+            "mrc    p15, 0, r1, c1, c0, 0\n"    /* read ctrl register   */
+            "orr    r1, r1, #0xc0000000\n"      /* Asynchronous         */
+            "mcr    p15, 0, r1, c1, c0, 0\n"    /* write ctrl register  */
+            :::"r1"
+        );
 
         /* to reduce PLL lock time, adjust the LOCKTIME register */
         clk_power->LOCKTIME = 0xFFFFFFFF;

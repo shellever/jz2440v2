@@ -30,11 +30,11 @@ SECTIONS
 	. = 0x00000000;
 
 	. = ALIGN(4);
-	.text      :
+	.text :
 	{
-	  cpu/arm920t/start.o	(.text)
-          board/100ask24x0/boot_init.o (.text)
-	  *(.text)
+	    cpu/arm920t/start.o	(.text)
+        board/100ask24x0/boot_init.o (.text)
+	    *(.text)
 	}
 
 	. = ALIGN(4);

@@ -305,12 +305,12 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
 	iflag = disable_interrupts();
 
-#ifdef CONFIG_AMIGAONEG3SE 
+#ifdef CONFIG_AMIGAONEG3SE
 	/*
 	 * We've possible left the caches enabled during
 	 * bios emulation, so turn them off again
 	 */
-	icache_disable();  
+	icache_disable();
 	invalidate_l1_instruction_cache();
 	flush_data_cache();
 	dcache_disable();
@@ -319,14 +319,14 @@ int do_bootm (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 	switch (hdr->ih_comp) {
 	case IH_COMP_NONE:
 		if(ntohl(hdr->ih_load) == data) {
-			printf ("   XIP %s ... ", name);
+			printf("   XIP %s ... ", name);
 		} else {
 #if defined(CONFIG_HW_WATCHDOG) || defined(CONFIG_WATCHDOG)
 			size_t l = len;
 			void *to = (void *)ntohl(hdr->ih_load);
 			void *from = (void *)data;
 
-			printf ("   Loading %s ... ", name);
+			printf("   Loading %s ... ", name);
 
 			while (l > 0) {
 				size_t tail = (l > CHUNKSZ) ? CHUNKSZ : l;

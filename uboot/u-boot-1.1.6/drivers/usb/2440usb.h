@@ -1,6 +1,6 @@
 /*********************************************
   NAME: 2440usb.h
-  DESC: 
+  DESC:
   HISTORY:
   03.23.2002:purnnamu: first release for 2410
  *********************************************/
@@ -12,11 +12,11 @@
 //*************************************************************************
 
 /* Power Management Register */
-#define DISABLE_SUSPEND          0x00   
+#define DISABLE_SUSPEND          0x00
 #define ENABLE_SUSPEND           0x01
-#define SUSPEND_MODE		 0x02
+#define SUSPEND_MODE		     0x02
 #define MCU_RESUME               0x04
-#define ISO_UPDATE		 (1<<7)
+#define ISO_UPDATE		         (1<<7)
 
 /* MAXP Register */
 #define FIFO_SIZE_0              0x00  /* 0x00 * 8 = 0  */
@@ -41,8 +41,8 @@
 #define EP0_INT                	 0x01  // Endpoint 0, Control   
 #define EP1_INT                  0x02  // Endpoint 1, (Bulk-In) 
 #define EP2_INT                  0x04  // Endpoint 2 
-#define EP3_INT			 0x08  // Endpoint 3, (Bulk-Out)   
-#define EP4_INT			 0x10  // Endpoint 4
+#define EP3_INT			         0x08  // Endpoint 3, (Bulk-Out)   
+#define EP4_INT			         0x10  // Endpoint 4
 
 //USB_INT_REG / USB_INT_EN_REG
 #define SUSPEND_INT            	 0x01  
@@ -51,37 +51,37 @@
 
 //IN_CSR1
 #define EPI_IN_PKT_READY         0x01  
-#define EPI_UNDER_RUN		 0x04
-#define EPI_FIFO_FLUSH		 0x08
+#define EPI_UNDER_RUN		     0x04
+#define EPI_FIFO_FLUSH		     0x08
 #define EPI_SEND_STALL           0x10  
 #define EPI_SENT_STALL           0x20  
-#define EPI_CDT			 0x40	
+#define EPI_CDT			         0x40	
 #define EPI_WR_BITS              (EPI_FIFO_FLUSH|EPI_IN_PKT_READY|EPI_CDT) 
 					//(EPI_FIFO_FLUSH) is preferred  (???)
 //IN_CSR2
 #define EPI_IN_DMA_INT_MASK	(1<<4)
-#define EPI_MODE_IN		(1<<5)
+#define EPI_MODE_IN		    (1<<5)
 #define EPI_MODE_OUT		(0<<5)
-#define EPI_ISO			(1<<6)
-#define EPI_BULK		(0<<6)
+#define EPI_ISO			    (1<<6)
+#define EPI_BULK		    (0<<6)
 #define EPI_AUTO_SET		(1<<7)
 
 //OUT_CSR1
 #define EPO_OUT_PKT_READY        0x01  
-#define EPO_OVER_RUN		 0x04  
-#define EPO_DATA_ERROR		 0x08  
-#define EPO_FIFO_FLUSH		 0x10
+#define EPO_OVER_RUN		     0x04  
+#define EPO_DATA_ERROR		     0x08  
+#define EPO_FIFO_FLUSH		     0x10
 #define EPO_SEND_STALL           0x20  
 #define EPO_SENT_STALL           0x40
-#define EPO_CDT			 0x80	
+#define EPO_CDT			         0x80	
 #define EPO_WR_BITS              (EPO_FIFO_FLUSH|EPO_SEND_STALL|EPO_CDT)
 					//(EPO_FIFO_FLUSH) is preferred (???)
 
 //OUT_CSR2
 #define EPO_OUT_DMA_INT_MASK	(1<<5)
-#define EPO_ISO		 	(1<<6)
-#define EPO_BULK	 	(0<<6)
-#define EPO_AUTO_CLR		(1<<7)
+#define EPO_ISO		 	        (1<<6)
+#define EPO_BULK	 	        (0<<6)
+#define EPO_AUTO_CLR		    (1<<7)
 
 //USB DMA control register
 #define UDMA_IN_RUN_OB		(1<<7)
@@ -105,7 +105,7 @@
 
 //If you chane the packet size, the source code should be changed!!!
 //USB Device Options
-#define USBDMA		TRUE
+#define USBDMA		    TRUE
 //#define USBDMA		FALSE
 #define USBDMA_DEMAND 	FALSE	//the downloadFileSize should be (64*n)
 #define BULK_PKT_SIZE	32

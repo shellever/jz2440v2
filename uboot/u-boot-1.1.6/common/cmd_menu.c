@@ -48,7 +48,7 @@ static unsigned long memsize_parse2 (const char *const ptr, const char **retptr)
 
     if (sixteen)
         return simple_strtoul(ptr, NULL, 16);
-    
+
 	return ret;
 }
 
@@ -71,7 +71,7 @@ void param_menu_shell(void)
     char cmd_buf[256];
     char name_buf[20];
     char val_buf[256];
-    
+
     while (1)
     {
         param_menu_usage();
@@ -88,7 +88,7 @@ void param_menu_shell(void)
                 run_command(cmd_buf, 0);
                 break;
             }
-            
+
             case 's':
             {
                 sprintf(cmd_buf, "setenv ");
@@ -105,7 +105,7 @@ void param_menu_shell(void)
                 run_command(cmd_buf, 0);
                 break;
             }
-            
+
             case 'd':
             {
                 sprintf(cmd_buf, "setenv ");
@@ -117,14 +117,14 @@ void param_menu_shell(void)
                 run_command(cmd_buf, 0);
                 break;
             }
-            
+
             case 'w':
             {
                 sprintf(cmd_buf, "saveenv");
                 run_command(cmd_buf, 0);
                 break;
             }
-            
+
             case 'q':
             {
                 return;
@@ -189,7 +189,7 @@ void menu_shell(void)
                 }
 				break;
             }
-            
+
             case 'k':
             {
                 strcpy(cmd_buf, "usbslave 1 0x30000000; nand erase kernel; nand write.jffs2 0x30000000 kernel $(filesize)");
@@ -222,7 +222,7 @@ void menu_shell(void)
             {
                 extern volatile U32 downloadAddress;
                 extern int download_run;
-                
+
                 download_run = 1;
                 strcpy(cmd_buf, "usbslave 1");
                 run_command(cmd_buf, 0);
@@ -284,15 +284,13 @@ void menu_shell(void)
 				run_command(cmd_buf, 0);
                 break;
             }
-            
+
             case 'q':
             {
-                return;    
+                return;
                 break;
             }
-
         }
-                
     }
 }
 
@@ -303,7 +301,7 @@ int do_menu (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 }
 
 U_BOOT_CMD(
-	menu,	3,	0,	do_menu,
+	menu, 3, 0,	do_menu,
 	"menu - display a menu, to select the items to do something\n",
 	" - display a menu, to select the items to do something"
 );

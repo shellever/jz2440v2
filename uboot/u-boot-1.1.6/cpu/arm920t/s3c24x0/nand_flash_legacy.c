@@ -9,7 +9,7 @@
 DECLARE_GLOBAL_DATA_PTR;
 
 /* only has two value: NFCE_LOW, NFCE_HIGH */
-#define NFCE_STATE  int 
+#define NFCE_STATE  int
 
 void NF_Conf(u16 conf)
 {
@@ -17,7 +17,7 @@ void NF_Conf(u16 conf)
 	S3C2440_NAND * const s3c2440nand = S3C2440_GetBase_NAND();
 
     if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
-    	s3c2410nand->NFCONF = conf;
+        s3c2410nand->NFCONF = conf;
     else
         s3c2440nand->NFCONF = conf;
 }
@@ -37,9 +37,9 @@ void NF_Cmd(u8 cmd)
 	S3C2440_NAND * const s3c2440nand = S3C2440_GetBase_NAND();
 
     if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
-    	s3c2410nand->NFCMD = cmd;
+        s3c2410nand->NFCMD = cmd;
     else
-    	s3c2440nand->NFCMD = cmd;
+        s3c2440nand->NFCMD = cmd;
 }
 
 void NF_CmdW(u8 cmd)
@@ -54,9 +54,9 @@ void NF_Addr(u8 addr)
 	S3C2440_NAND * const s3c2440nand = S3C2440_GetBase_NAND();
 
     if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
-    	s3c2410nand->NFADDR = addr;
+        s3c2410nand->NFADDR = addr;
     else
-    	s3c2440nand->NFADDR = addr;
+        s3c2440nand->NFADDR = addr;
     udelay(15);
 }
 
@@ -68,16 +68,16 @@ void NF_SetCE(NFCE_STATE s)
 	switch (s) {
 		case NFCE_LOW:
             if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
-		    	s3c2410nand->NFCONF &= ~(1<<11);
+                s3c2410nand->NFCONF &= ~(1<<11);
             else
-		    	s3c2440nand->NFCONT &= ~(1<<1);                
+                s3c2440nand->NFCONT &= ~(1<<1);
 			break;
 
 		case NFCE_HIGH:
             if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
-    			s3c2410nand->NFCONF |= (1<<11);
+                s3c2410nand->NFCONF |= (1<<11);
             else
-		    	s3c2440nand->NFCONT |= (1<<1);
+                s3c2440nand->NFCONT |= (1<<1);
 			break;
 	}
 }
@@ -100,11 +100,11 @@ void NF_WaitRB(void)
 
     if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
     {
-    	while (!(s3c2410nand->NFSTAT & (1<<0)));
+        while (!(s3c2410nand->NFSTAT & (1<<0)));
     }
     else
     {
-    	while (!(s3c2440nand->NFSTAT & (1<<0)));
+        while (!(s3c2440nand->NFSTAT & (1<<0)));
         s3c2440nand->NFSTAT |= (1<<2);
     }
 }
@@ -116,10 +116,9 @@ void NF_Write(u8 data)
     volatile unsigned char *puc = (volatile unsigned char *)&s3c2440nand->NFDATA;
 
     if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
-    	s3c2410nand->NFDATA = data;
+        s3c2410nand->NFDATA = data;
     else
-    	*puc = data;    /* s3c2440's NFDATA must be accessed by 'u8*', www.100ask.net */
-    
+        *puc = data;    /* s3c2440's NFDATA must be accessed by 'u8*', www.100ask.net */
 }
 
 u8 NF_Read(void)
@@ -129,9 +128,9 @@ u8 NF_Read(void)
     volatile unsigned char *puc = (volatile unsigned char *)&s3c2440nand->NFDATA;
 
     if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
-    	return(s3c2410nand->NFDATA);
+        return(s3c2410nand->NFDATA);
     else
-    	return(*puc);   /* s3c2440's NFDATA must be accessed by 'u8*', www.100ask.net */
+        return(*puc);   /* s3c2440's NFDATA must be accessed by 'u8*', www.100ask.net */
 }
 
 void NF_Init_ECC(void)
@@ -140,7 +139,7 @@ void NF_Init_ECC(void)
 	S3C2440_NAND * const s3c2440nand = S3C2440_GetBase_NAND();
 
     if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
-    	s3c2410nand->NFCONF |= (1<<12);
+        s3c2410nand->NFCONF |= (1<<12);
     else
     {
         s3c2440nand->NFCONT |= (1<<4);   // Reset ECC
@@ -154,7 +153,7 @@ u32 NF_Read_ECC(void)
 	S3C2440_NAND * const s3c2440nand = S3C2440_GetBase_NAND();
 
     if (gd->bd->bi_arch_number == MACH_TYPE_SMDK2410)
-    	return(s3c2410nand->NFECC);
+        return(s3c2410nand->NFECC);
     else
     {
         s3c2440nand->NFCONT |= (1<<5);  // Lock MECC

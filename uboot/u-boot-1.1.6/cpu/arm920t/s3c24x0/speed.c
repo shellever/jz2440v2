@@ -149,7 +149,7 @@ ulong get_PCLK(void)
     if (isS3C2410)
         return((clk_power->CLKDIVN & 0x1) ? get_HCLK()/2 : get_HCLK());
     else
-    {   
+    {
         clkdiv = clk_power->CLKDIVN;
         camdiv = clk_power->CAMDIVN;
 
@@ -174,7 +174,7 @@ ulong get_PCLK(void)
         }
 
         return get_FCLK() / hdiv / ((clkdiv & S3C2440_CLKDIVN_PDIVN)? 2:1);
-    }        
+    }
 }
 
 /* return UCLK frequency */

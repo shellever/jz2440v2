@@ -194,7 +194,7 @@ int nand_legacy_rw (struct nand_chip* nand, int cmd,
 
     allblks = (erasesize/nand->oobblock)*(nand->oobblock+nand->oobsize);
     allblks = (len + allblks - 1) / allblks;
-    
+
 	if ((cmd & NANDRW_YAFFS) && (len % (nand->oobblock + nand->oobsize))) {
         printf("Length of the yaffs image should be times of (%d +%d), now it is %d\n", nand->oobblock, nand->oobsize, len);
         return -1;
@@ -207,7 +207,7 @@ int nand_legacy_rw (struct nand_chip* nand, int cmd,
 
 	if (cmd & (NANDRW_WRITE | NANDRW_YAFFS)) {
         printf("Flash params: oobblock = %d, oobsize = %d, erasesize = %d\n", nand->oobblock, nand->oobsize, nand->erasesize);
-    	printf("Programming NAND with yaffs image, length = %d\n", len);
+        printf("Programming NAND with yaffs image, length = %d\n", len);
         printf(" Block Programming(addr/count) --- Block bad(addr/count) --- Block programed/All(%%)\n");
         printf("------------------------------------------------------------------------------------\n");
 	}
@@ -257,19 +257,19 @@ int nand_legacy_rw (struct nand_chip* nand, int cmd,
 
         /* for yaffs, by www.100ask.net */
 		if (cmd & (NANDRW_WRITE | NANDRW_YAFFS)) {
-			/* Do some programming, but not in the first block */			
+			/* Do some programming, but not in the first block */
             if (!bfirstyaffsblk) {
                 prgmblk = start;
                 prgmblks++;
                 printf("       0x%08x/%05d               0x%08x/%05d          %05d/%05d=%02d%%\r", prgmblk, prgmblks, badblk, badblks, prgmblks, allblks, prgmblks*100/allblks);
                 for (page = 0; (page < erasesize/nand->oobblock) && (len - page*(nand->oobblock+nand->oobsize) > 0); page++) {
-        			ret = nand_write_ecc(nand, start+page*nand->oobblock,
-        					    nand->oobblock, (size_t *)&n,
-        					    (u_char*)buf+page*(nand->oobblock+nand->oobsize), (u_char *)0); /* without ecc */
-                    if (!ret) 
+                    ret = nand_write_ecc(nand, start+page*nand->oobblock,
+                                nand->oobblock, (size_t *)&n,
+                                (u_char*)buf+page*(nand->oobblock+nand->oobsize), (u_char *)0); /* without ecc */
+                    if (!ret)
                         ret = nand_write_oob(nand, start+page*nand->oobblock,
-    						     nand->oobsize, (size_t *)&n,
-    						     (u_char*)buf+page*(nand->oobblock+nand->oobsize)+nand->oobblock);
+                                nand->oobsize, (size_t *)&n,
+                                (u_char*)buf+page*(nand->oobblock+nand->oobsize)+nand->oobblock);
                     if (ret)
                         break;
                 }
@@ -295,9 +295,9 @@ int nand_legacy_rw (struct nand_chip* nand, int cmd,
 			break;
 
 		if (cmd & (NANDRW_WRITE | NANDRW_YAFFS))
-    		start  += page * nand->oobblock;
+            start += page * nand->oobblock;
         else
-    		start  += n;
+            start += n;
         
 		buf   += n;
 		total += n;
@@ -845,8 +845,8 @@ static int nand_write_page (struct nand_chip *nand,
 #ifdef CONFIG_MTD_NAND_ECC
 	/* Zero out the ECC array */
     if (ecc_code)   /* www.100ask.net */
-    	for (i = 0; i < 6; i++)
-    		ecc_code[i] = 0x00;
+        for (i = 0; i < 6; i++)
+            ecc_code[i] = 0x00;
 
 	/* Read back previous written data, if col > 0 */
 	if (col) {
@@ -1012,37 +1012,37 @@ static int nand_write_page (struct nand_chip *nand,
 	 */
     /* if ecc_code is null, write without ecc, www.100ask.net */
 	if (ecc_code) {
-    	NanD_Command (nand, NAND_CMD_READOOB);
-    	if (nand->bus16) {
-    		NanD_Address (nand, ADDR_COLUMN_PAGE,
-    			      (page << nand->page_shift) + (col >> 1));
-    	} else {
-    		NanD_Address (nand, ADDR_COLUMN_PAGE,
-    			      (page << nand->page_shift) + col);
-    	}
-    	if (nand->bus16) {
-    		for (i = 0; i < nand->oobsize; i += 2) {
-    			u16 val;
+        NanD_Command (nand, NAND_CMD_READOOB);
+        if (nand->bus16) {
+            NanD_Address (nand, ADDR_COLUMN_PAGE,
+                    (page << nand->page_shift) + (col >> 1));
+        } else {
+            NanD_Address (nand, ADDR_COLUMN_PAGE,
+                    (page << nand->page_shift) + col);
+        }
+        if (nand->bus16) {
+            for (i = 0; i < nand->oobsize; i += 2) {
+                u16 val;
 
-    			val = READ_NAND (nand->IO_ADDR);
-    			nand->data_buf[i] = val & 0xff;
-    			nand->data_buf[i + 1] = val >> 8;
-    		}
-    	} else {
-    		for (i = 0; i < nand->oobsize; i++) {
-    			nand->data_buf[i] = READ_NAND (nand->IO_ADDR);
-    		}
-    	}
-    	for (i = 0; i < ecc_bytes; i++) {
-    		if ((nand->data_buf[(oob_config.ecc_pos[i])] != ecc_code[i]) && ecc_code[i]) {
-    			printf ("%s: Failed ECC write "
-    				"verify, page 0x%08x, "
-    				"%6i bytes were succesful\n",
-    				__FUNCTION__, page, i);
-    			return -1;
-    		}
-    	}
-	}
+                val = READ_NAND (nand->IO_ADDR);
+                nand->data_buf[i] = val & 0xff;
+                nand->data_buf[i + 1] = val >> 8;
+            }
+        } else {
+            for (i = 0; i < nand->oobsize; i++) {
+                nand->data_buf[i] = READ_NAND (nand->IO_ADDR);
+            }
+        }
+        for (i = 0; i < ecc_bytes; i++) {
+            if ((nand->data_buf[(oob_config.ecc_pos[i])] != ecc_code[i]) && ecc_code[i]) {
+                printf ("%s: Failed ECC write "
+                    "verify, page 0x%08x, "
+                    "%6i bytes were succesful\n",
+                    __FUNCTION__, page, i);
+                return -1;
+            }
+        }
+    }
 #endif	/* CONFIG_MTD_NAND_ECC */
 #endif	/* CONFIG_MTD_NAND_VERIFY_WRITE */
 	return 0;
@@ -1215,7 +1215,7 @@ int nand_write_oob(struct nand_chip* nand, size_t ofs, size_t len,
 	NanD_Command(nand, NAND_CMD_READOOB);
 
 /* bug fixed by www.100ask.net
- * write oob sequence: 
+ * write oob sequence:
  *  1. NAND_CMD_READOOB
  *  2. NAND_CMD_SEQIN
  *  3. Address
@@ -1223,7 +1223,7 @@ int nand_write_oob(struct nand_chip* nand, size_t ofs, size_t len,
  *  5. NAND_CMD_PAGEPROG
  *  6. NAND_CMD_STATUS
  */
-#if 0   
+#if 0
 	if (nand->bus16) {
  		NanD_Address(nand, ADDR_COLUMN_PAGE,
 			     ((ofs >> nand->page_shift) << nand->page_shift) +

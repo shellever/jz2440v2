@@ -191,7 +191,7 @@ stack_setup:
 
 #ifndef CONFIG_SKIP_LOWLEVEL_INIT
     bl clock_init
-#endif    
+#endif
 
 #ifndef CONFIG_SKIP_RELOCATE_UBOOT
 relocate:				/* relocate U-Boot to RAM	    */
@@ -199,7 +199,7 @@ relocate:				/* relocate U-Boot to RAM	    */
 	ldr	r1, _TEXT_BASE		/* test if we run from flash or RAM */
 	cmp     r0, r1                  /* don't reloc during debug         */
 	beq     clear_bss
-	
+
 	ldr	r2, _armboot_start
 	ldr	r3, _bss_start
 	sub	r2, r3, r2		/* r2 <- size of armboot            */
@@ -439,7 +439,7 @@ not_used:
 @ thisway.diy, 2006.06.24
 .globl Launch
     .align	4
-Launch:    
+Launch:
     mov r7, r0
     @ diable interrupt
 	@ disable watch dog timer
@@ -459,7 +459,6 @@ Launch:
     mov r2, #0x0        @ set all interrupt as IRQ (not FIQ)
     str     r2, [r1]
 
-    @ 
 	mov	ip, #0
 	mcr	p15, 0, ip, c13, c0, 0      @	/* zero PID */
 	mcr	p15, 0, ip, c7, c7, 0       @	/* invalidate I,D caches */
@@ -494,8 +493,8 @@ On_Steppingstone:
     @ add by thisway.diy 2006.06.26, switch to SVC mode
 	msr	cpsr_c,	#0xdf	@ set the I-bit = 1, diable the IRQ interrupt
 	msr	cpsr_c,	#0xd3	@ set the I-bit = 1, diable the IRQ interrupt
-    ldr sp, =0x31ff5800	
-    
+    ldr sp, =0x31ff5800
+
     nop
 	nop
     nop
@@ -513,7 +512,7 @@ irq:
 	sub	lr, lr, #4			        @ the return address
 	ldr	sp, IRQ_STACK_START	        @ the stack for irq
 	stmdb	sp!, 	{ r0-r12,lr }	@ save registers
-	
+
 	ldr	lr,	=int_return		        @ set the return addr
 	ldr	pc, =IRQ_Handle		        @ call the isr
 int_return:

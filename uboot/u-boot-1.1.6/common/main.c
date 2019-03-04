@@ -440,8 +440,8 @@ void main_loop (void)
 
 # ifndef CFG_HUSH_PARSER
         {
-            printf("Booting Linux ...\n");            
-    	    run_command (s, 0);
+            printf("Booting Linux ...\n");
+            run_command (s, 0);
         }
 # else
 		parse_string_outer(s, FLAG_PARSE_SEMICOLON |

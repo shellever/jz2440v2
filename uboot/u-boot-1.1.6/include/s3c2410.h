@@ -45,24 +45,24 @@ typedef enum {
 } S3C24X0_UARTS_NR;
 
 /* S3C2410 device base addresses */
-#define S3C24X0_MEMCTL_BASE     0x48000000
+#define S3C24X0_MEMCTL_BASE         0x48000000
 #define S3C24X0_USB_HOST_BASE       0x49000000
 #define S3C24X0_INTERRUPT_BASE      0x4A000000
-#define S3C24X0_DMA_BASE        0x4B000000
+#define S3C24X0_DMA_BASE            0x4B000000
 #define S3C24X0_CLOCK_POWER_BASE    0x4C000000
-#define S3C24X0_LCD_BASE        0x4D000000
-#define S3C2410_NAND_BASE       0x4E000000
-#define S3C24X0_UART_BASE       0x50000000
-#define S3C24X0_TIMER_BASE      0x51000000
+#define S3C24X0_LCD_BASE            0x4D000000
+#define S3C2410_NAND_BASE           0x4E000000
+#define S3C24X0_UART_BASE           0x50000000
+#define S3C24X0_TIMER_BASE          0x51000000
 #define S3C24X0_USB_DEVICE_BASE     0x52000140
 #define S3C24X0_WATCHDOG_BASE       0x53000000
-#define S3C24X0_I2C_BASE        0x54000000
-#define S3C24X0_I2S_BASE        0x55000000
-#define S3C24X0_GPIO_BASE       0x56000000
-#define S3C24X0_RTC_BASE        0x57000000
-#define S3C2410_ADC_BASE        0x58000000
-#define S3C24X0_SPI_BASE        0x59000000
-#define S3C2410_SDI_BASE        0x5A000000
+#define S3C24X0_I2C_BASE            0x54000000
+#define S3C24X0_I2S_BASE            0x55000000
+#define S3C24X0_GPIO_BASE           0x56000000
+#define S3C24X0_RTC_BASE            0x57000000
+#define S3C2410_ADC_BASE            0x58000000
+#define S3C24X0_SPI_BASE            0x59000000
+#define S3C2410_SDI_BASE            0x5A000000
 
 
 /* include common stuff */
@@ -148,7 +148,7 @@ static inline S3C2410_SDI * const S3C2410_GetBase_SDI(void)
     return (S3C2410_SDI * const)S3C2410_SDI_BASE;
 }
 
-/* add by thisway.diy */             
+/* add by thisway.diy */
 #define _ISR_STARTADDRESS   ((unsigned)isr_handle_array)
 
 #define ISR_EINT0_OFT     0

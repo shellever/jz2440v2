@@ -443,7 +443,7 @@ static int nand_block_bad(struct mtd_info *mtd, loff_t ofs, int getchip)
 
 		/* Select the NAND device */
 		this->select_chip(mtd, chipnr);
-	} 
+	}
 
 	if (this->options & NAND_BUSWIDTH_16) {
 		this->cmdfunc (mtd, NAND_CMD_READOOB, this->badblockpos & 0xFE, page & this->pagemask);
@@ -453,9 +453,9 @@ static int nand_block_bad(struct mtd_info *mtd, loff_t ofs, int getchip)
 		if ((bad & 0xFF) != 0xff)
 			res = 1;
 	} else {
-    		this->cmdfunc (mtd, NAND_CMD_READOOB, this->badblockpos, page & this->pagemask);
-    		if (this->read_byte(mtd) != 0xff)
-    			res = 1;
+            this->cmdfunc (mtd, NAND_CMD_READOOB, this->badblockpos, page & this->pagemask);
+            if (this->read_byte(mtd) != 0xff)
+                res = 1;
 
         // Apply delay or wait for ready/busy pin
         // add by www.100ask.net, if not, the erase will be failed
@@ -597,7 +597,7 @@ static void nand_command (struct mtd_info *mtd, unsigned command, int column, in
 			/* One more address cycle for devices > 32MiB */
 			if (this->chipsize > (32 << 20))
 				this->write_byte(mtd, (unsigned char) ((page_addr >> 16) & 0x0f));
-   			    udelay(15);
+            udelay(15);
 		}
 		/* Latch in address */
 		this->hwcontrol(mtd, NAND_CTL_CLRALE);
@@ -680,11 +680,11 @@ static void nand_command_lp (struct mtd_info *mtd, unsigned command, int column,
 
 		/* Serially input address */
 		if (column != -1) {
-#if 0			
+#if 0
 			/* Adjust columns for 16 bit buswidth */
 			if (this->options & NAND_BUSWIDTH_16)
 				column >>= 1;
-#endif			
+#endif
 			this->write_byte(mtd, column & 0xff);
 			this->write_byte(mtd, column >> 8);
 		}
@@ -1790,10 +1790,10 @@ out:
  * NAND write
  */
 int
-nand_write_calmecc(struct mtd_info *mtd, loff_t to, size_t len, 
+nand_write_calmecc(struct mtd_info *mtd, loff_t to, size_t len,
            size_t *retlen, const u_char *buf, unsigned int *pdwECCVal)
 {
-	int i, page, col, cnt, status, chipnr;    
+	int i, page, col, cnt, status, chipnr;
 	struct nand_chip *this = mtd->priv;
     S3C2440_NAND * const s3c2440nand = S3C2440_GetBase_NAND();
 
@@ -1841,7 +1841,7 @@ nand_write_calmecc(struct mtd_info *mtd, loff_t to, size_t len,
 		/* Write ones for partial page programming */
 		for (i = mtd->oobblock; i < (mtd->oobblock + mtd->oobsize); i++)
 			this->data_buf[i] = 0xff;
-		
+
 		/* Write pre-padding bytes into buffer */
 		for (i = 0; i < col; i++)
 			this->data_buf[i] = 0xff;
@@ -1866,19 +1866,19 @@ nand_write_calmecc(struct mtd_info *mtd, loff_t to, size_t len,
         *pdwECCVal = s3c2440nand->NFMECC0; // Read MECC
 
 		this->write_buf(mtd, &this->data_buf[mtd->oobblock], mtd->oobsize);
-        
-    	/* Send command to actually program the data */
-    	this->cmdfunc (mtd, NAND_CMD_PAGEPROG, -1, -1);
 
-    	/* call wait ready function */
-    	status = this->waitfunc (mtd, this, FL_WRITING);
-    	/* See if device thinks it succeeded */
-    	if (status & 0x01) {
-    		DEBUG (MTD_DEBUG_LEVEL0, "%s: " "Failed write, page 0x%08x, ", __FUNCTION__, page);
-    		return -EIO;
-    	}
+        /* Send command to actually program the data */
+        this->cmdfunc (mtd, NAND_CMD_PAGEPROG, -1, -1);
 
-		/* 
+        /* call wait ready function */
+        status = this->waitfunc (mtd, this, FL_WRITING);
+        /* See if device thinks it succeeded */
+        if (status & 0x01) {
+            DEBUG (MTD_DEBUG_LEVEL0, "%s: " "Failed write, page 0x%08x, ", __FUNCTION__, page);
+            return -EIO;
+        }
+
+		/*
 		 * If we are writing a large amount of data and/or it
 		 * crosses page or half-page boundaries, we set the
 		 * the column to zero. It simplifies the program logic.
@@ -1891,7 +1891,6 @@ nand_write_calmecc(struct mtd_info *mtd, loff_t to, size_t len,
 
 		/* Increment page address */
 		page++;
-		
 	}
 
 	/* Return happy */

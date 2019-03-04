@@ -24,7 +24,7 @@
 
 #include <common.h>
 
-ulong myflush (void);
+ulong myflush(void);
 
 
 #define FLASH_BANK_SIZE	PHYS_FLASH_SIZE
@@ -34,11 +34,11 @@ flash_info_t flash_info[CFG_MAX_FLASH_BANKS];
 
 
 #define CMD_READ_ARRAY		0x000000F0
-#define CMD_UNLOCK1		0x000000AA
-#define CMD_UNLOCK2		0x00000055
+#define CMD_UNLOCK1		    0x000000AA
+#define CMD_UNLOCK2		    0x00000055
 #define CMD_ERASE_SETUP		0x00000080
 #define CMD_ERASE_CONFIRM	0x00000030
-#define CMD_PROGRAM		0x000000A0
+#define CMD_PROGRAM		    0x000000A0
 #define CMD_UNLOCK_BYPASS	0x00000020
 
 #define MEM_FLASH_ADDR1		(*(volatile u16 *)(CFG_FLASH_BASE + (0x00000555 << 1)))
@@ -47,7 +47,7 @@ flash_info_t flash_info[CFG_MAX_FLASH_BANKS];
 #define BIT_ERASE_DONE		0x00000080
 #define BIT_RDY_MASK		0x00000080
 #define BIT_PROGRAM_ERROR	0x00000020
-#define BIT_TIMEOUT		0x80000000	/* our flag */
+#define BIT_TIMEOUT		    0x80000000	/* our flag */
 
 #define READY 1
 #define ERR   2
@@ -56,7 +56,7 @@ flash_info_t flash_info[CFG_MAX_FLASH_BANKS];
 /*-----------------------------------------------------------------------
  */
 
-ulong flash_init (void)
+ulong flash_init(void)
 {
 	int i, j;
 	ulong size = 0;
@@ -74,48 +74,42 @@ ulong flash_init (void)
 #else
 #error "Unknown flash configured"
 #endif
-			flash_info[i].size = FLASH_BANK_SIZE;
+		flash_info[i].size = FLASH_BANK_SIZE;
 		flash_info[i].sector_count = CFG_MAX_FLASH_SECT;
-		memset (flash_info[i].protect, 0, CFG_MAX_FLASH_SECT);
+		memset(flash_info[i].protect, 0, CFG_MAX_FLASH_SECT);
 		if (i == 0)
 			flashbase = PHYS_FLASH_1;
 		else
-			panic ("configured too many flash banks!\n");
+			panic("configured too many flash banks!\n");
 		for (j = 0; j < flash_info[i].sector_count; j++) {
 			if (j <= 3) {
 				/* 1st one is 16 KB */
 				if (j == 0) {
-					flash_info[i].start[j] =
-						flashbase + 0;
+					flash_info[i].start[j] = flashbase + 0;
 				}
 
 				/* 2nd and 3rd are both 8 KB */
 				if ((j == 1) || (j == 2)) {
-					flash_info[i].start[j] =
-						flashbase + 0x4000 + (j -
-								      1) *
-						0x2000;
+					flash_info[i].start[j] = flashbase + 0x4000 + (j - 1) * 0x2000;
 				}
 
 				/* 4th 32 KB */
 				if (j == 3) {
-					flash_info[i].start[j] =
-						flashbase + 0x8000;
+					flash_info[i].start[j] = flashbase + 0x8000;
 				}
 			} else {
-				flash_info[i].start[j] =
-					flashbase + (j - 3) * MAIN_SECT_SIZE;
+				flash_info[i].start[j] = flashbase + (j - 3) * MAIN_SECT_SIZE;
 			}
 		}
 		size += flash_info[i].size;
 	}
 
-	flash_protect (FLAG_PROTECT_SET,
+	flash_protect(FLAG_PROTECT_SET,
 		       CFG_FLASH_BASE,
 		       CFG_FLASH_BASE + monitor_flash_len - 1,
 		       &flash_info[0]);
 
-	flash_protect (FLAG_PROTECT_SET,
+	flash_protect(FLAG_PROTECT_SET,
 		       CFG_ENV_ADDR,
 		       CFG_ENV_ADDR + CFG_ENV_SIZE - 1, &flash_info[0]);
 
@@ -124,52 +118,52 @@ ulong flash_init (void)
 
 /*-----------------------------------------------------------------------
  */
-void flash_print_info (flash_info_t * info)
+void flash_print_info(flash_info_t * info)
 {
 	int i;
 
 	switch (info->flash_id & FLASH_VENDMASK) {
 	case (AMD_MANUFACT & FLASH_VENDMASK):
-		printf ("AMD: ");
+		printf("AMD: ");
 		break;
 	default:
-		printf ("Unknown Vendor ");
+		printf("Unknown Vendor ");
 		break;
 	}
 
 	switch (info->flash_id & FLASH_TYPEMASK) {
 	case (AMD_ID_LV400B & FLASH_TYPEMASK):
-		printf ("1x Amd29LV400BB (4Mbit)\n");
+		printf("1x Amd29LV400BB (4Mbit)\n");
 		break;
 	case (AMD_ID_LV800B & FLASH_TYPEMASK):
-		printf ("1x Amd29LV800BB (8Mbit)\n");
+		printf("1x Amd29LV800BB (8Mbit)\n");
 		break;
 	default:
-		printf ("Unknown Chip Type\n");
+		printf("Unknown Chip Type\n");
 		goto Done;
 		break;
 	}
 
-	printf ("  Size: %ld MB in %d Sectors\n",
+	printf("  Size: %ld MB in %d Sectors\n",
 		info->size >> 20, info->sector_count);
 
-	printf ("  Sector Start Addresses:");
+	printf("  Sector Start Addresses:");
 	for (i = 0; i < info->sector_count; i++) {
 		if ((i % 5) == 0) {
-			printf ("\n   ");
+			printf("\n   ");
 		}
-		printf (" %08lX%s", info->start[i],
+		printf(" %08lX%s", info->start[i],
 			info->protect[i] ? " (RO)" : "     ");
 	}
-	printf ("\n");
+	printf("\n");
 
-      Done:;
+    Done:;
 }
 
 /*-----------------------------------------------------------------------
  */
 
-int flash_erase (flash_info_t * info, int s_first, int s_last)
+int flash_erase(flash_info_t * info, int s_first, int s_last)
 {
 	ushort result;
 	int iflag, cflag, prot, sect;
@@ -206,16 +200,16 @@ int flash_erase (flash_info_t * info, int s_first, int s_last)
 	 * (ticker) exception to happen while the flash
 	 * chip is in programming mode.
 	 */
-	cflag = icache_status ();
-	icache_disable ();
-	iflag = disable_interrupts ();
+	cflag = icache_status();
+	icache_disable();
+	iflag = disable_interrupts();
 
 	/* Start erase on unprotected sectors */
-	for (sect = s_first; sect <= s_last && !ctrlc (); sect++) {
-		printf ("Erasing sector %2d ... ", sect);
+	for (sect = s_first; sect <= s_last && !ctrlc(); sect++) {
+		printf("Erasing sector %2d ... ", sect);
 
 		/* arm simple, non interrupt dependent timer */
-		reset_timer_masked ();
+		reset_timer_masked();
 
 		if (info->protect[sect] == 0) {	/* not protected */
 			vu_short *addr = (vu_short *) (info->start[sect]);
@@ -235,7 +229,7 @@ int flash_erase (flash_info_t * info, int s_first, int s_last)
 				result = *addr;
 
 				/* check timeout */
-				if (get_timer_masked () >
+				if (get_timer_masked() >
 				    CFG_FLASH_ERASE_TOUT) {
 					MEM_FLASH_ADDR1 = CMD_READ_ARRAY;
 					chip = TMO;
@@ -263,25 +257,25 @@ int flash_erase (flash_info_t * info, int s_first, int s_last)
 				goto outahere;
 			}
 
-			printf ("ok.\n");
+			printf("ok.\n");
 		} else {	/* it was protected */
 
-			printf ("protected!\n");
+			printf("protected!\n");
 		}
 	}
 
-	if (ctrlc ())
-		printf ("User Interrupt!\n");
+	if (ctrlc())
+		printf("User Interrupt!\n");
 
       outahere:
 	/* allow flash to settle - wait 10 ms */
-	udelay_masked (10000);
+	udelay_masked(10000);
 
 	if (iflag)
-		enable_interrupts ();
+		enable_interrupts();
 
 	if (cflag)
-		icache_enable ();
+		icache_enable();
 
 	return rc;
 }
@@ -290,7 +284,7 @@ int flash_erase (flash_info_t * info, int s_first, int s_last)
  * Copy memory to flash
  */
 
-volatile static int write_hword (flash_info_t * info, ulong dest, ushort data)
+volatile static int write_hword(flash_info_t * info, ulong dest, ushort data)
 {
 	vu_short *addr = (vu_short *) dest;
 	ushort result;
@@ -313,9 +307,9 @@ volatile static int write_hword (flash_info_t * info, ulong dest, ushort data)
 	 * (ticker) exception to happen while the flash
 	 * chip is in programming mode.
 	 */
-	cflag = icache_status ();
-	icache_disable ();
-	iflag = disable_interrupts ();
+	cflag = icache_status();
+	icache_disable();
+	iflag = disable_interrupts();
 
 	MEM_FLASH_ADDR1 = CMD_UNLOCK1;
 	MEM_FLASH_ADDR2 = CMD_UNLOCK2;
@@ -324,7 +318,7 @@ volatile static int write_hword (flash_info_t * info, ulong dest, ushort data)
 	*addr = data;
 
 	/* arm simple, non interrupt dependent timer */
-	reset_timer_masked ();
+	reset_timer_masked();
 
 	/* wait until flash is ready */
 	chip = 0;
@@ -332,7 +326,7 @@ volatile static int write_hword (flash_info_t * info, ulong dest, ushort data)
 		result = *addr;
 
 		/* check timeout */
-		if (get_timer_masked () > CFG_FLASH_ERASE_TOUT) {
+		if (get_timer_masked() > CFG_FLASH_ERASE_TOUT) {
 			chip = ERR | TMO;
 			break;
 		}
@@ -356,10 +350,10 @@ volatile static int write_hword (flash_info_t * info, ulong dest, ushort data)
 		rc = ERR_PROG_ERROR;
 
 	if (iflag)
-		enable_interrupts ();
+		enable_interrupts();
 
 	if (cflag)
-		icache_enable ();
+		icache_enable();
 
 	return rc;
 }
@@ -368,7 +362,7 @@ volatile static int write_hword (flash_info_t * info, ulong dest, ushort data)
  * Copy memory to flash.
  */
 
-int write_buff (flash_info_t * info, uchar * src, ulong addr, ulong cnt)
+int write_buff(flash_info_t * info, uchar * src, ulong addr, ulong cnt)
 {
 	ulong cp, wp;
 	int l;
@@ -394,7 +388,7 @@ int write_buff (flash_info_t * info, uchar * src, ulong addr, ulong cnt)
 			data = (data >> 8) | (*(uchar *) cp << 8);
 		}
 
-		if ((rc = write_hword (info, wp, data)) != 0) {
+		if ((rc = write_hword(info, wp, data)) != 0) {
 			return (rc);
 		}
 		wp += 2;
@@ -405,7 +399,7 @@ int write_buff (flash_info_t * info, uchar * src, ulong addr, ulong cnt)
 	 */
 	while (cnt >= 2) {
 		data = *((vu_short *) src);
-		if ((rc = write_hword (info, wp, data)) != 0) {
+		if ((rc = write_hword(info, wp, data)) != 0) {
 			return (rc);
 		}
 		src += 2;
@@ -429,5 +423,7 @@ int write_buff (flash_info_t * info, uchar * src, ulong addr, ulong cnt)
 		data = (data >> 8) | (*(uchar *) cp << 8);
 	}
 
-	return write_hword (info, wp, data);
+	return write_hword(info, wp, data);
 }
+
+

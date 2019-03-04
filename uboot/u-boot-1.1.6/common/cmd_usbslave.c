@@ -35,6 +35,7 @@ int do_usbslave (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
         {
             break;
         }
+
         case 2:
         {
             g_bUSBWait = (int)simple_strtoul(argv[1], NULL, 16);
@@ -48,28 +49,28 @@ int do_usbslave (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
             download_run = 0;
             break;
         }
-        
-        default: 
+
+        default:
         {
             printf ("Usage:\n%s\n", cmdtp->usage);
-    		return 1;
+            return 1;
         }
     }
 
-    dwUSBBufBase = load_addr;  
-    dwUSBBufSize = (FREE_RAM_SIZE&(~(0x80000-1)));  
+    dwUSBBufBase = load_addr;
+    dwUSBBufSize = (FREE_RAM_SIZE&(~(0x80000-1)));
     if (g_bUSBWait)
         len = FREE_RAM_SIZE;
 
     g_dwDownloadLen = usb_receive(dwUSBBufBase, len, g_bUSBWait);
     sprintf(buf, "%X", g_dwDownloadLen);
     setenv("filesize", buf);
-    
+
 	return 0;
 }
 
 U_BOOT_CMD(
-	usbslave,	3,	0,	do_usbslave,
+	usbslave, 3, 0, do_usbslave,
 	"usbslave - get file from host(PC)\n",
 	"[wait] [loadAddress]\n"
 	"\"wait\" is 0 or 1, 0 means for return immediately, not waits for the finish of transferring\n"

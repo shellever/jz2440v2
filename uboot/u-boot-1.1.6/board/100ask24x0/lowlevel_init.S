@@ -45,7 +45,7 @@
 #define BWSCON	0x48000000
 
 /* BWSCON */
-#define DW8		 	(0x0)
+#define DW8		 	    (0x0)
 #define DW16		 	(0x1)
 #define DW32		 	(0x2)
 #define WAIT		 	(0x1<<2)

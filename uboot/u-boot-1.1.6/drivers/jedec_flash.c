@@ -1279,7 +1279,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_PMC,
 		.dev_id		= PM49FL002,
 		.name		= "PMC Pm49FL002",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_256KiB,
@@ -1292,7 +1292,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_PMC,
 		.dev_id		= PM49FL004,
 		.name		= "PMC Pm49FL004",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_512KiB,
@@ -1305,7 +1305,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_PMC,
 		.dev_id		= PM49FL008,
 		.name		= "PMC Pm49FL008",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_1MiB,
@@ -1331,7 +1331,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST39LF512,
 		.name		= "SST 39LF512",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_64KiB,
@@ -1344,7 +1344,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST39LF010,
 		.name		= "SST 39LF010",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_128KiB,
@@ -1355,33 +1355,33 @@ static const struct amd_flash_info jedec_table[] = {
 		}
         }, {
 		.mfr_id		= MANUFACTURER_SST,
- 		.dev_id 	= SST29EE020,
+        .dev_id 	= SST29EE020,
 		.name		= "SST 29EE020",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
- 		.DevSize	= SIZE_256KiB,
- 		.CmdSet		= P_ID_SST_PAGE,
- 		.NumEraseRegions= 1,
- 		.regions = {ERASEINFO(0x01000,64),
- 		}
-         }, {
- 		.mfr_id		= MANUFACTURER_SST,
+        .DevSize	= SIZE_256KiB,
+        .CmdSet		= P_ID_SST_PAGE,
+        .NumEraseRegions= 1,
+        .regions = {ERASEINFO(0x01000,64),
+        }
+        }, {
+        .mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST29LE020,
- 		.name		= "SST 29LE020",
- 		.uaddr		= {
+        .name		= "SST 29LE020",
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
- 		.DevSize	= SIZE_256KiB,
- 		.CmdSet		= P_ID_SST_PAGE,
- 		.NumEraseRegions= 1,
- 		.regions = {ERASEINFO(0x01000,64),
- 		}
+        .DevSize	= SIZE_256KiB,
+        .CmdSet		= P_ID_SST_PAGE,
+        .NumEraseRegions= 1,
+        .regions = {ERASEINFO(0x01000,64),
+        }
 	}, {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST39LF020,
 		.name		= "SST 39LF020",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_256KiB,
@@ -1394,7 +1394,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST39LF040,
 		.name		= "SST 39LF040",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_512KiB,
@@ -1407,7 +1407,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST39SF010A,
 		.name		= "SST 39SF010A",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_128KiB,
@@ -1420,7 +1420,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST39SF020A,
 		.name		= "SST 39SF020A",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_256KiB,
@@ -1433,7 +1433,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id         = SST49LF040B,
 		.name           = "SST 49LF040B",
-		.uaddr          = {
+        .uaddr          = {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize        = SIZE_512KiB,
@@ -1460,7 +1460,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST49LF008A,
 		.name		= "SST 49LF008A",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_1MiB,
@@ -1473,7 +1473,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST49LF030A,
 		.name		= "SST 49LF030A",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_512KiB,
@@ -1486,7 +1486,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST49LF040A,
 		.name		= "SST 49LF040A",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_512KiB,
@@ -1499,7 +1499,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_SST,
 		.dev_id		= SST49LF080A,
 		.name		= "SST 49LF080A",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA /* x8 */
 		},
 		.DevSize	= SIZE_1MiB,
@@ -1527,7 +1527,7 @@ static const struct amd_flash_info jedec_table[] = {
                .mfr_id         = MANUFACTURER_SST,     /* should be CFI */
                .dev_id         = SST39VF1601,
                .name           = "SST 39VF1601",
-               .uaddr          = {
+                .uaddr          = {
                        [0] = MTD_UADDR_0x5555_0x2AAA,  /* x8 */
                        [1] = MTD_UADDR_0x5555_0x2AAA   /* x16 */
                },
@@ -1543,7 +1543,7 @@ static const struct amd_flash_info jedec_table[] = {
 		.mfr_id		= MANUFACTURER_ST,	/* FIXME - CFI device? */
 		.dev_id		= M29W800DT,
 		.name		= "ST M29W800DT",
- 		.uaddr		= {
+        .uaddr		= {
 			[0] = MTD_UADDR_0x5555_0x2AAA,  /* x8 */
 			[1] = MTD_UADDR_0x5555_0x2AAA   /* x16 */
 		},

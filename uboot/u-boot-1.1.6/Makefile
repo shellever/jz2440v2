@@ -266,7 +266,7 @@ $(obj)u-boot:		depend version $(SUBDIRS) $(OBJS) $(LIBS) $(LDSCRIPT)
 			-Map u-boot.map -o u-boot
 
 $(OBJS):
-	echo $(OBJS)	
+		echo $(OBJS)
 		$(MAKE) -C cpu/$(CPU) $(if $(REMOTE_BUILD),$@,$(notdir $@))
 
 $(LIBS):

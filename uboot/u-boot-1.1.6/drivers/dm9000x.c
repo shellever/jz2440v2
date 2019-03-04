@@ -36,8 +36,8 @@ v1.2   03/18/2003       Weilun Huang <weilun_huang@davicom.com.tw>:
 
 --------------------------------------
 
-       12/15/2003       Initial port to u-boot by
-       			Sascha Hauer <saschahauer@web.de>
+       12/15/2003   Initial port to u-boot by
+                    Sascha Hauer <saschahauer@web.de>
 
        06/03/2008	Remy Bohmer <linux@bohmer.net>
 			- Fixed the driver to work with DM9000A.

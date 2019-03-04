@@ -30,7 +30,7 @@ static void s3c2410_nand_select_chip(struct mtd_info *mtd, int chip)
     }
 }
 
-/* command and control functions, for s3c2410 
+/* command and control functions, for s3c2410
  *
  * Note, these all use tglx's method of changing the IO_ADDR_W field
  * to make the code simpler, and use the nand layer's code to issue the

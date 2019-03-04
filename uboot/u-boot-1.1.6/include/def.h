@@ -47,8 +47,8 @@ typedef unsigned long DWORD;
 typedef DWORD *PDWORD;
 typedef unsigned long LDWORD;
 typedef DWORD *LPDWORD;
-typedef unsigned char   BYTE;
-typedef unsigned short  WORD;
+typedef unsigned char  BYTE;
+typedef unsigned short WORD;
 
 typedef unsigned long ULONG;
 typedef ULONG *PULONG;
@@ -59,14 +59,14 @@ typedef BYTE *LPBYTE;
 
 typedef void *PVOID;
 
-typedef  char*          LPSTR;
+typedef char* LPSTR;
 
 
 #ifndef NULL
 #define NULL 0
 #endif
 
-#define TRUE 	1   
+#define TRUE 	1
 #define FALSE 	0
 
 #endif /*__DEF_H__*/

@@ -1590,7 +1590,7 @@ static int flash_detect_legacy(ulong base, int banknum)
 				} else {
 					ret = jedec_flash_probe(info, base);
 				}
-				
+
 				if (ret)
 					break;
 			}

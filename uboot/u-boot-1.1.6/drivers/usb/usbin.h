@@ -1,8 +1,8 @@
 /****************************************************************
  NAME: usbin.h
- DESC: 
+ DESC:
  HISTORY:
- Mar.25.2002:purnnamu: reuse the source of S3C2400X u24xmon 
+ Mar.25.2002:purnnamu: reuse the source of S3C2400X u24xmon
  ****************************************************************/
 #ifndef __USBIN_H__
 #define __USBIN_H__
