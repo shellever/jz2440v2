@@ -137,7 +137,7 @@ void param_menu_shell(void)
 
 void main_menu_usage(void)
 {
-    printf("\r\n##### 100ask Bootloader for OpenJTAG #####\r\n");
+    printf("\r\n##### 100ask Bootloader Interface for U-boot #####\r\n");
 
     printf("[n] Download u-boot to Nand Flash\r\n");
 	if (bBootFrmNORFlash())
