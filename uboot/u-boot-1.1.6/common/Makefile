@@ -52,7 +52,7 @@ COBJS	= main.o ACEX1K.o altera.o bedbug.o circbuf.o \
 	  s_record.o serial.o soft_i2c.o soft_spi.o spartan2.o spartan3.o \
 	  usb.o usb_kbd.o usb_storage.o \
 	  virtex2.o xilinx.o crc16.o xyzModem.o cmd_mac.o \
-	  cmd_printme.o
+	  cmd_printme.o cmd_ledctrl.o
 
 SRCS	:= $(AOBJS:.o=.S) $(COBJS:.o=.c)
 OBJS	:= $(addprefix $(obj),$(AOBJS) $(COBJS))
