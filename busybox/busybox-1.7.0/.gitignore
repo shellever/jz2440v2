@@ -1,0 +1,53 @@
+#
+# NOTE! Don't add files that are generated in specific
+# subdirectories here. Add them in the ".gitignore" file
+# in that subdirectory instead.
+#
+# Normal rules
+#
+.*
+*.o
+*.a
+*.s
+*.ko
+*.so
+*.mod.c
+*.i
+*.lst
+*.symtypes
+
+#
+# Top-level generic files
+#
+tags
+TAGS
+vmlinux*
+System.map
+Module.symvers
+
+#
+# Generated include files
+#
+include/autoconf.h
+
+#
+# Generated scripts files
+#
+scripts/basic/docproc
+scripts/basic/fixdep
+scripts/basic/split-include
+scripts/kconfig/lex.zconf.c
+scripts/kconfig/lxdialog/lxdialog
+scripts/kconfig/mconf
+scripts/kconfig/zconf.hash.c
+scripts/kconfig/zconf.tab.c
+
+# stgit generated dirs
+patches-*
+
+# quilt's files
+patches
+series
+
+# cscope files
+cscope.*
