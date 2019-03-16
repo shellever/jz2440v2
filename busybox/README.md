@@ -6,6 +6,7 @@ $ tar -jxvf busybox-1.7.0.tar.bz2
 $ cd busybox-1.7.0
 $ vi INSTALL
 
+
 1. 手工配置 Busybox (其中++为手动开启选项，其余为默认配置)
 $ make menuconfig
 Busybox Settings  --->
@@ -44,12 +45,12 @@ $ make ARCH=arm CROSS_COMPILE=arm-linux-
 
 
 3. 安装到指定路径下 (使用nfs可以挂载此目录下的根文件系统)
-$ mkdir -p ~/workspace/nfsroot/rootfs
-$ make CONFIG_PREFIX=~/workspace/nfsroot/rootfs install
+$ mkdir -p $LINUX_ARM_ROOT_PATH/output/nfsroot/rootfs
+$ make CONFIG_PREFIX=$LINUX_ARM_ROOT_PATH/output/nfsroot/rootfs install
 
 
 4. 查看安装后的根文件系统
-$ ls -l ~/workspace/nfsroot/rootfs/
+$ ls -l $LINUX_ARM_ROOT_PATH/output/nfsroot/rootfs/
 total 12
 drwxrwxr-x 2 linuxfor linuxfor 4096 Nov 18 23:49 bin
 lrwxrwxrwx 1 linuxfor linuxfor   11 Nov 18 23:49 linuxrc -> bin/busybox
