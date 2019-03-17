@@ -2,6 +2,8 @@
 
 ```
 1. 创建两个设备文件：/dev/console 和 /dev/null
+此设备文件无法被压缩保存或者git跟踪修改，需要自行本地创建。
+
 查看pc主机上此两个设备文件信息
 $ ls -l /dev/console /dev/null
 crw------- 1 root root 5, 1 Nov 16 19:00 /dev/console
@@ -13,18 +15,22 @@ $ mkdir dev
 $ cd dev
 $ sudo mknod console c 5 1
 $ sudo mknod null c 1 3    
+$ ls -l
+crw-r--r-- 1 root root 5, 1 Mar 18 01:06 console
+crw-r--r-- 1 root root 1, 3 Mar 18 01:06 null
 
 
-2. init -> busybox
+2. 创建init程序 (linuxrc -> bin/busybox)
+默认编译busybox安装后，生成linuxrc作为init程序，其也是指向/bin/busybox的链接
 
 
-3. 创建/etc/inittab配置文件，并配置启动项
+3. 创建/etc/inittab配置文件，并配置启动项，只执行 /bin/sh 交互环境
 $ mkdir etc
 $ cd etc
 $ vi inittab
 console::askfirst:-/bin/sh
 
-此启动项askfirst会先打印出下面提示，待按回车键后激活控制台
+此启动项askfirst会先打印出下面提示，待按回车键后激活控制台，并进入/bin/sh环境
 Please press Enter to activate this console.
 
 
@@ -35,10 +41,9 @@ Please press Enter to activate this console.
 在开发板上只需要加载器和动态库即可。
 
 $ mkdir lib
-$ cd $LINUX_ARM_ROOT_PATH/tools/arm-gcc/gcc-3.4.5-glibc-2.3.6/arm-linux/lib
-
-使用-d来保持链接文件格式
-$ cp -d *.so* $LINUX_ARM_ROOT_PATH/output/nfsroot/rootfs/lib/
+使用-d来保持链接文件格式++
+$ cp -fpd $LINUX_ARM_ROOT_PATH/tools/gcc/arm-linux-gcc-3.4.5/arm-linux/lib/*.so* lib/
+$ ls -l lib/
 
 
 6. 制作文件系统镜像文件
