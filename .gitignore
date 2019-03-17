@@ -2,8 +2,7 @@
 *.elf
 *.dis
 *.bin
-#*.bin
 
 tag
 
-output/
+#output/
