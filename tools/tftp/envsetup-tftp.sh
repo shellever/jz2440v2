@@ -10,7 +10,7 @@ Q_WORK_DIR_CUR=$(pwd)
 
 
 # exported directory of tftp
-TFTP_ROOT_PATH="$HOME/workspace/tftpboot"
+TFTP_ROOT_PATH="$LINUX_ARM_ROOT_PATH/output/tftpboot"
 if [ ! -e $TFTP_ROOT_PATH ]; then
     mkdir -p $TFTP_ROOT_PATH
 fi
@@ -34,7 +34,7 @@ fi
 
 
 # examples for get file
-# cd ~/workspace/tftpboot
+# cd ~/workspace/jz2440v2/output/tftpboot
 # echo "hello tftp" > firstme.txt
 # cd ~/temp
 # tftp 127.0.0.1
