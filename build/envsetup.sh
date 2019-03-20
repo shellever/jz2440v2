@@ -19,6 +19,7 @@ source $LINUX_ARM_ROOT_PATH/tools/dnw/envsetup-dnw.sh
 source $LINUX_ARM_ROOT_PATH/tools/mkimage/envsetup-uboot.sh
 source $LINUX_ARM_ROOT_PATH/tools/mkyaffs/envsetup-mkyaffs.sh
 source $LINUX_ARM_ROOT_PATH/tools/mkjffs/envsetup-mkjffs.sh
+source $LINUX_ARM_ROOT_PATH/tools/jlink/envsetup-jlink.sh
 
 # network
 source $LINUX_ARM_ROOT_PATH/tools/nfs/envsetup-nfs.sh
