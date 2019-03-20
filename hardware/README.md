@@ -10,6 +10,7 @@ gpio/       -- gpio使用
   led_on_c  -- C语言点亮LED1
   leds      -- 轮流点亮3个LED
 i2c         -- i2c使用
+init        -- 下载uboot前对sdram进行初始化
 int         -- 中断使用
 lcd         -- 适配4.3寸(480x272)和3.5寸(240x320)LCD使用
 mmu         -- MMU使用
