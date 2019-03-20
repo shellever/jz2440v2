@@ -10,7 +10,7 @@ Q_WORK_DIR_CUR=$(pwd)
 
 
 # exported directory of nfs
-NFS_ROOT_PATH="$HOME/workspace/nfsroot"
+NFS_ROOT_PATH="$LINUX_ARM_ROOT_PATH/output/nfsroot"
 if [ ! -e $NFS_ROOT_PATH ]; then
     mkdir -p $NFS_ROOT_PATH
 fi
@@ -41,6 +41,6 @@ fi
 
 # examples for mounting
 # 1. mounted into directory /mnt/nfs in embedded device
-# mount -t nfs -o nolock 192.168.31.212:/home/linuxfor/workspace/nfsroot /mnt/nfs
+# mount -t nfs -o nolock 192.168.31.212:/home/linuxfor/workspace/jz2440v2/output/nfsroot /mnt/nfs
 # umount /mnt/nfs
 
