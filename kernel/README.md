@@ -26,7 +26,10 @@ cd $KERNEL_ROOT_PATH
 # make distclean
 
 # config
-cp config_ok .config
+#cp config_ok .config
+cp -p config_ok arch/arm/configs/jz2440v2_defconfig
+make jz2440v2_defconfig    // 生成默认配置 .config
+make menuconfig            // 图形界面修改默认配置
 # build
 make uImage
 
