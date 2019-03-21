@@ -1,0 +1,3 @@
+# mount proc filesystem to specified directory /proc
+mkdir /proc
+mount -t proc none /proc
