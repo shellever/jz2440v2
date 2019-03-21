@@ -1,5 +1,16 @@
+mkdir /sys
+mkdir -p /dev
 # mount proc filesystem to specified directory /proc
 mkdir /proc
 #mount -t proc none /proc
 # depends on /etc/fstab
 mount -a
+
+# mdev
+# busybox-1.7.0/docs/mdev.txt
+#mount -t tmpfs mdev /dev
+#mount -t sysfs sysfs /sys
+mkdir /dev/pts
+mount -t devpts devpts /dev/pts
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s
