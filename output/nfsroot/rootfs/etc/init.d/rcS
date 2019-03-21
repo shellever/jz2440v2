@@ -1,3 +1,5 @@
 # mount proc filesystem to specified directory /proc
 mkdir /proc
-mount -t proc none /proc
+#mount -t proc none /proc
+# depends on /etc/fstab
+mount -a
