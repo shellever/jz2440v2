@@ -269,4 +269,85 @@ etc/fstab          -- rcS脚本中的 mount -a命令
 
 ## 挂载网络文件系统
 
+```
+挂载NFS的条件
+1) 服务器允许指定目录可被挂载
+2) 开发板挂载服务器指定目录
+
+
+1. 从Flash上启动根文件系统，再使用mount命令挂载NFS网络文件系统
+启动开发板网卡并配置IP地址
+# ifconfig
+# ifconfig eth0 up    // 使能eth0网卡
+# ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:60:6E:33:44:55
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+          Interrupt:51 Base address:0xa000
+
+# ifconfig eth0 192.168.31.17    // 配置网卡ip地址
+# ifconfig
+eth0      Link encap:Ethernet  HWaddr 00:60:6E:33:44:55
+          inet addr:192.168.31.17  Bcast:192.168.31.255  Mask:255.255.255.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+          Interrupt:51 Base address:0xa000
+
+# ping -c 3 192.168.31.212    // ping主机ip
+PING 192.168.31.212 (192.168.31.212): 56 data bytes
+64 bytes from 192.168.31.212: seq=0 ttl=64 time=4.700 ms
+64 bytes from 192.168.31.212: seq=1 ttl=64 time=0.647 ms
+64 bytes from 192.168.31.212: seq=2 ttl=64 time=0.643 ms
+
+--- 192.168.31.212 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 0.643/1.996/4.700 ms
+
+挂载网络文件系统到指定目录下 (开发板上操作)
+# mkdir -p /mnt/nfs
+# mount -t nfs -o nolock 192.168.31.212:/home/linuxfor/workspace/jz2440v2/output/nfsroot/rootfs /mnt/nfs
+# ls /mnt/nfs/
+bin      etc      linuxrc  sbin     usr
+dev      lib      proc     sys
+
+
+
+2. 直接从NFS启动
+uboot> printenv bootargs
+bootargs=noinitrd root=/dev/mtdblock3 init=/linuxrc console=ttySAC0
+
+从内核的nfs参考文档中可以查找到命令行参数配置格式：
+kernel/Documentation/nfsroot.txt
+root=/dev/nfs
+nfsroot=[<server-ip:>]<root-dir>[,<nfs-options>]
+ip=<client-ip>:<server-ip>:<gw-ip>:<netmask>:<hostname>:<device>:<autoconf>
+
+
+uboot> set bootargs noinitrd root=/dev/nfs nfsroot=192.168.31.212:/home/linuxfor/workspace/jz2440v2/output/nfsroot/rootfs
+    ip=192.168.31.17:192.168.31.212:192.168.31.1:255.255.255.0::eth0:off init=/linuxrc console=ttySAC0
+uboot> saveenv
+uboot> boot
+
+// PC主机上，编写并编译生成可执行文件hello
+$ cd $LINUX_ARM_ROOT_PATH/output/nfsroot/rootfs
+$ vi hello.c
+#include <stdio.h>
+int main(void)
+{
+    printf("hello rootfs with nfs\n");
+    return 0;
+}
+$ arm-linux-gcc -o hello hello.c
+
+// 开发板上，直接运行生成的可执行文件hello
+# ./hello
+hello rootfs with nfs
+```
+
 
