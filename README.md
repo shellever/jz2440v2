@@ -16,6 +16,7 @@ busybox     - 根文件系统
 driver      - 驱动程序
 gui         - 图形界面
 
+output      - 编译生成文件
 build       - 编译环境配置脚本
 tools       - 交叉编译工具等
 document    - 相关电子文档
