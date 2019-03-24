@@ -29,7 +29,7 @@ $ ./JLinkExe
 
 s3c2440支持两种启动方式：
 1. 以nand方式启动，此时nand中的前4k内容会由硬件自动复制到片内SRAM的4k空间中，
-片内4k内存会被映射到bank0，起始地址为0。
+片内4k内存会被映射到bank0，起始地址为`0`处。
 2. 以nor方式启动，此时nor会也会被映射到bank0，并且nor可以像内存一样被直接读取，
 cpu从nor的0地址开始运行，同时片内SRAM会被映射到`0x40000000`地址处。
 
@@ -145,7 +145,7 @@ J-Link>speed 12000  // 12kHz = 12MHz
 
 
 4. 下载sdram初始化程序
-J-Link>loadbin init_nor.bin 0x40000000      // 首次直接使用loadbin命令下载程序到sram的0地址
+J-Link>loadbin init_nor.bin 0x40000000      // 首次直接使用loadbin命令下载程序到sram的0x40000000地址
 J-Link>setpc 0x40000000      // 设置pc寄存器
 J-Link>g            // 跳转执行，D10指示灯亮
 
