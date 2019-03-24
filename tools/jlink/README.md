@@ -75,7 +75,7 @@ Info: CP15.0.1: 0x0D172172: ICache: 16kB (64*8*32), DCache: 16kB (64*8*32)
 Info: Cache type: Separate, Write-back, Format A
 Found 1 JTAG device, Total IRLen = 4:
 #0 Id: 0x0032409D, IRLen: 04, Unknown device
-Found ARM with core Id 0x0032409D (ARM9)    // 识别处id则说明连接成功
+Found ARM with core Id 0x0032409D (ARM9)    // 识别出id则说明连接成功
 Target interface speed: 100 kHz
 J-Link>
 
@@ -133,6 +133,76 @@ uboot> nand write 0x30000000 bootloader
 ```
 
 #### 2. 使用JLink间接烧写Nor Flash步骤
+
+```
+1. 以Nor方式对开发板进行上电
+
+2. 进入J-Link命令行环境 (自动识别设备id)
+$ JLinkExe
+
+3. 设置数据传输速度
+J-Link>speed 12000  // 12kHz = 12MHz
+
+
+4. 下载sdram初始化程序
+J-Link>loadbin init_nor.bin 0x40000000      // 首次直接使用loadbin命令下载程序到sram的0地址
+J-Link>setpc 0x40000000      // 设置pc寄存器
+J-Link>g            // 跳转执行，D10指示灯亮
+
+
+5. 烧写u-boot.bin到sdram中
+此时sdram已经通过init_nor.bin完成初始化，因此可以烧写到sdram中
+
+J-Link>h            // 暂停cpu运行
+J-Link>loadbin u-boot.bin 0x33f80000    // 下载uboot到链接地址位置
+J-Link>setpc 0x33f80000     // 设置pc
+J-Link>g            // 跳转到uboot执行程序，三个灯亮
+
+
+此时通过串口可以看到uboot输出信息
+U-Boot 1.1.6-g81e0c984-dirty (Mar 11 2019 - 01:14:36)
+
+DRAM:  64 MB
+Flash:  2 MB
+NAND:  256 MiB
+*** Warning - bad CRC or NAND, using default environment
+
+In:    serial
+Out:   serial
+Err:   serial
+Use these steps to program the image to flash:
+1. In OpenOCD
+   Run the 'halt' command to halt u-boot
+   Run the 'load_image <file> <address>' command to load file to SDRAM
+   Run the 'resume' command to resume u-boot
+2. In u-boot, use the flash commands to program the image to flash
+Or, use the tftp or nfs command to download file, and then program the flash.
+uboot>
+
+
+6. 将要烧写到Nand的uboot程序下载到sdram起始地址
+J-Link>h
+J-Link>loadbin u-boot.bin 0x30000000
+J-Link>g
+
+
+7. 通过sdram上运行在0x33f80000地址的uboot来将0x30000000地址上的uboot烧写到Nor中
+注意：如果烧写的bin文件比擦除的扇区空间大，会导致无法启动uboot程序。
+0x30000 = 3 x 2^16 = 3 x 2^6 k = 192 k
+0x40000 = 4 x 2^16 = 4 x 2^6 k = 256 k
+
+uboot> protect off all  // 解锁
+Un-Protect Flash Bank # 1
+uboot> erase 0 0x3ffff    // 擦除从0地址开始的大小为0x40000的NOR扇区，大小为擦除块的整数倍
+
+...... done
+Erased 7 sectors
+uboot> cp.b 0x30000000 0 0x40000  // 把前面下载到0x30000000的程序烧写到Nor中
+Copy to Flash... done
+
+
+8. 以Nor方式重新上电启动，可以看到uboot输出信息
+```
 
 
 ## 参考文章
