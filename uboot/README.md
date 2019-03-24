@@ -54,5 +54,5 @@ U_BOOT_CMD(name,maxargs,rep,cmd,usage,help)
 |----|----|
 |printme|简单uboot命令使用示例，只打印输入参数而已|
 |ledctrl|控制指定或者所有led灯的点亮和熄灭|
-|bfconfig|uboot环境变量bootargs中指定字段的配置，实现更删改查功能|
+|bfconfig|uboot环境变量bootargs中指定字段的配置，实现增删改查功能|
 
