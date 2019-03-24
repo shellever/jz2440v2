@@ -48,4 +48,11 @@ U_BOOT_CMD(name,maxargs,rep,cmd,usage,help)
 |usage|简短的使用说明，在直接执行help命令时显示|
 |help|使用help来查看指定命令的帮助信息时显示|
 
+自定义命令：
+
+|命令|说明|
+|----|----|
+|printme|简单uboot命令使用示例，只打印输入参数而已|
+|ledctrl|控制指定或者所有led灯的点亮和熄灭|
+|bfconfig|uboot环境变量bootargs中指定字段的配置，实现更删改查功能|
 
