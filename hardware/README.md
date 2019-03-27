@@ -46,6 +46,7 @@ $ make archive
 
 ## 烧写方式
 
+```
 通过NOR Flash上的uboot程序来烧写裸板程序到NAND Flash中
 
 1. 使用dnw工具烧写裸板程序
@@ -63,5 +64,6 @@ $ make archive
     > nand erase bootloader
     > nand write 30000000 bootloader
 2.4 开发板下电，切换至NAND模式启动，即可测试裸板程序效果
+```
 
 
