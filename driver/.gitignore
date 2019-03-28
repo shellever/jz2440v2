@@ -1,0 +1,12 @@
+*.o 
+*.symvers 
+.*.d 
+.*.cmd 
+*.mod.c 
+.tmp_versions
+*.ko
+
+*.out
+
+drivers_and_test/
+*.tar.gz
