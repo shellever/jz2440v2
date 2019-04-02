@@ -19,7 +19,7 @@ void print_usage(char *fname)
 
 int main(int argc, char **argv)
 {
-	int fd;
+    int fd;
     int status;
 
     // check argument count
@@ -39,14 +39,15 @@ int main(int argc, char **argv)
     }
 
     // open device
-	fd = open(LED_DEVICE, O_RDWR);
-	if (fd < 0) {
-		printf("can't open device: %s\n", LED_DEVICE);
+    fd = open(LED_DEVICE, O_RDWR);
+    if (fd < 0) {
+        printf("can't open device: %s\n", LED_DEVICE);
         return -1;
-	}
+    }
 
-	write(fd, &status, sizeof(status));
+    write(fd, &status, sizeof(status));
 
-	return 0;
+    return 0;
 }
+
 
