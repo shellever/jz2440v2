@@ -34,11 +34,11 @@ int main(int argc, char **argv)
     int flags;
 
     // open device
-	fd = open(KEY_DEVICE, O_RDWR);
-	if (fd < 0) {
-		printf("can't open device: %s\n", KEY_DEVICE);
+    fd = open(KEY_DEVICE, O_RDWR);
+    if (fd < 0) {
+        printf("can't open device: %s\n", KEY_DEVICE);
         return -1;
-	}
+    }
 
     // register signal handler
     signal(SIGIO, my_signal_fun);
@@ -55,6 +55,6 @@ int main(int argc, char **argv)
         sleep(1000);
     }
 
-	return 0;
+    return 0;
 }
 
