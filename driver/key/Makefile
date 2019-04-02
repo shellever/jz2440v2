@@ -1,4 +1,4 @@
-# Top Makefile for Hardware GPIO
+# Top Makefile for Driver Key
 # Copyright (C) 2019 shellever <shellever@163.com>
 
 DIR = .
@@ -28,11 +28,12 @@ distclean:
 	done
 
 help:
-	@echo "==================Top Makefile for Hardware GPIO=================="
+	@echo "==================Top Makefile for Driver Key=================="
 	@echo "Copyright (C) 2019 Shellever <shellever@163.com>"
 	@echo "supported targets below:"
 	@echo
-	@echo " all       - build all targets"
+	@echo " all       - build all kernel modules"
+	@echo " test      - build all tests"
 	@echo " clean     - clean intermediate files"
 	@echo " distclean - clean intermediate files and target"
 	@echo " help      - print help information"
