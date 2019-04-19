@@ -19,7 +19,7 @@ export NFS_ROOT_PATH
 
 if [ ! -e /etc/exports ]; then
 # installation {{{
-sudo apt-get install nfs-kernel-server
+sudo apt-get install -y nfs-kernel-server
 # configure the exported directory
 sudo cat >> /etc/exports << EOF
 

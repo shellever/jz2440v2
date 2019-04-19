@@ -17,7 +17,7 @@ export PATH=$MKJFFS_PATH:$PATH
 
 # Memory Technology Device Utilities
 [ -z "`which mkfs.jffs2`" ] && {
-    sudo apt-get install mtd-utils
+    sudo apt-get install -y mtd-utils
 }
 
 # <===exit

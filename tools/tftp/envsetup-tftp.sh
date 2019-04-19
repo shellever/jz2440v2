@@ -19,7 +19,7 @@ export TFTP_ROOT_PATH
 
 if [ ! -e /etc/default/tftpd-hpa ]; then
 # installation {{{
-sudo apt-get install tftp-hpa tftpd-hpa
+sudo apt-get install -y tftp-hpa tftpd-hpa
 # configure tftp directory
 KEY_NAME=TFTP_DIRECTORY
 KEY_VALUE=$TFTP_ROOT_PATH
