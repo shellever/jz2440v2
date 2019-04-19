@@ -180,7 +180,7 @@ Or, use the tftp or nfs command to download file, and then program the flash.
 uboot>
 
 
-6. 将要烧写到Nand的uboot程序下载到sdram起始地址
+6. 将要烧写到Nor的uboot程序下载到sdram起始地址
 J-Link>h
 J-Link>loadbin u-boot.bin 0x30000000
 J-Link>g
