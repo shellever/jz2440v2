@@ -21,13 +21,14 @@ if [ ! -e /etc/exports ]; then
 # installation {{{
 sudo apt-get install -y nfs-kernel-server
 # configure the exported directory
-sudo cat >> /etc/exports << EOF
+sudo bash -c "cat >> /etc/exports << EOF
 
 # nfs workspace for jz2440
 # `date "+%m/%d/%Y %H:%M%S"`
 ${NFS_ROOT_PATH} *(rw,sync,no_root_squash)
 
 EOF
+"
 
 # restart nfs server
 sudo service nfs-kernel-server restart
