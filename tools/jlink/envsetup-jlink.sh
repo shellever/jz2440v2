@@ -22,7 +22,7 @@ fi
 
 if [ ! -f /etc/udev/rules.d/99-jlink.rules ]; then
     sudo cp -fp $JLINK_PATH/99-jlink.rules /etc/udev/rules.d/
-    # sudo reboot
+    sudo service udev restart
 fi
 
 JLINK_PATH="$Q_JLINK_PATH_CUR/$JLINK_V"
