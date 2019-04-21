@@ -20,6 +20,7 @@ cd $Q_MINICOM_PATH_CUR
 
 if [ -z "$(which minicom)" ]; then
     sudo apt-get install -y minicom
+    sudo apt-get install -y lrzsz
     sudo cp -fp 50-usb-serial.rules /etc/udev/rules.d/
 fi
 
