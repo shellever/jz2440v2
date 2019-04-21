@@ -54,7 +54,8 @@ case $choice in
         echo "current: $current"
         [ ! -d $current ] && echo "$current no exist now"; exit 1
         cd $current
-        [ ! -f .config ] && cp -fp config_ok .config
+        # [ ! -f .config ] && cp -fp config_ok .config
+        make jz2440v2_defconfig
         make uImage
         cd -
         ;;
