@@ -20,13 +20,13 @@ if [ ! -d $JLINK_V ]; then
     tar -zxvf $JLINK_V.tgz
 fi
 
+JLINK_PATH="$Q_JLINK_PATH_CUR/$JLINK_V"
+export PATH=$JLINK_PATH:$PATH
+
 if [ ! -f /etc/udev/rules.d/99-jlink.rules ]; then
     sudo cp -fp $JLINK_PATH/99-jlink.rules /etc/udev/rules.d/
     sudo service udev restart
 fi
-
-JLINK_PATH="$Q_JLINK_PATH_CUR/$JLINK_V"
-export PATH=$JLINK_PATH:$PATH
 
 # <===exit
 cd $Q_WORK_DIR_CUR
