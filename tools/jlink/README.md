@@ -18,7 +18,7 @@ $ vi README.txt
 3. install
 $ cd JLink_Linux_V635g_x86_64
 $ sudo cp -p 99-jlink.rules /etc/udev/rules.d/
-$ cp -Rp./* ~/devsoft/tools/jlink/JLink_Linux_V635g_x86_64
+$ sudo service udev restart
 
 4. testing
 $ ./JLinkExe
