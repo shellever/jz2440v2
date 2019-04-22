@@ -30,7 +30,7 @@ help:
 	@echo "supported targets below:"
 	@echo
 	@echo " all       		- build all targets"
-	@echo " linux-2.6.22.6  - build kernel linux-2.6.22.6"
+	@echo " linux-2.6.22.6	- build kernel linux-2.6.22.6"
 	@echo " archive   		- archive image file into output directory"
 	@echo " clean     		- clean intermediate files"
 	@echo " distclean 		- clean intermediate files and target"
