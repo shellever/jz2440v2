@@ -1,4 +1,32 @@
-## Linux版本dnw使用说明
+## dnw源码下载与编译安装
+
+```
+dnw - download file to device using usb
+https://github.com/shellever/quokka-dnw
+quokka-dnw-master.zip
+
+
+installation
+0. depend
+$ sudo apt-get install libusb-dev
+
+1. extract
+$ unzip quokka-dnw-master.zip
+
+2. read doc
+$ vi README.md
+
+3. install
+$ cd quokka-dnw-master
+$ make
+$ sudo make install
+
+4. run dnw
+$ ./dnw -f u-boot.bin
+```
+
+
+## dnw工具使用说明
 
 ```
 1. dnw是一个USB工具，通过USB发送文件给具有USB下载功能的bootloader。
