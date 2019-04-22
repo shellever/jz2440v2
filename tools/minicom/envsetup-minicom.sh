@@ -11,7 +11,7 @@ Q_WORK_DIR_CUR=$(pwd)
 
 # minicom configuration
 MINIRC_DEFAULT="minirc.dfl"
-MINIRC_JZ2440="minirc.ttyusb0"
+MINIRC_TTYUSB0="minirc.ttyusb0"
 
 
 # ===>enter
@@ -24,8 +24,12 @@ if [ -z "$(which minicom)" ]; then
     sudo cp -fp 50-usb-serial.rules /etc/udev/rules.d/
 fi
 
-if [ ! -f "/etc/minicom/$MINIRC_JZ2440" ]; then
-    sudo cp -fp $MINIRC_JZ2440 /etc/minicom/$MINIRC_JZ2440
+if [ ! -f "/etc/minicom/$MINIRC_TTYUSB0" ]; then
+    sudo cp -fp $MINIRC_TTYUSB0 /etc/minicom/$MINIRC_TTYUSB0
+fi
+
+if [ ! -f "/etc/minicom/$MINIRC_DEFAULT" ]; then
+    sudo cp -fp $MINIRC_DEFAULT /etc/minicom/$MINIRC_DEFAULT
 fi
 
 # config MINICOM environment variable
@@ -33,7 +37,8 @@ fi
 # -c on     // turn color support on
 #export MINICOM="-w -c on"
 
-alias sminicom='sudo minicom -w -c on ttyusb0'
+alias sminicom='minicom -w -c on ttyusb0'
+alias minicom='minicom -w'
 
 
 # <===exit
@@ -48,7 +53,7 @@ cd $Q_WORK_DIR_CUR
 # sminicom
 
 # startup
-# sudo minicom -w ttyusb0
-# sudo minicom -w -c on ttyusb0
+# minicom -w ttyusb0
+# minicom -w -c on ttyusb0
 
 
