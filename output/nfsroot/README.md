@@ -334,20 +334,15 @@ uboot> set bootargs noinitrd root=/dev/nfs nfsroot=192.168.31.212:/home/linuxfor
 uboot> saveenv
 uboot> boot
 
-// PC主机上，编写并编译生成可执行文件hello
-$ cd $LINUX_ARM_ROOT_PATH/output/nfsroot/rootfs
-$ vi hello.c
-#include <stdio.h>
-int main(void)
-{
-    printf("hello rootfs with nfs\n");
-    return 0;
-}
-$ arm-linux-gcc -o hello hello.c
 
-// 开发板上，直接运行生成的可执行文件hello
-# ./hello
-hello rootfs with nfs
+3. 编译并测试hello程序
+PC主机上，编译可执行文件hello.out
+$ cd $LINUX_ARM_ROOT_PATH/output/nfsroot/rootfs/test/hello
+$ make
+
+开发板上，直接运行可执行文件hello.out
+/test/hello # ./hello.out
+hello world!
 ```
 
 
