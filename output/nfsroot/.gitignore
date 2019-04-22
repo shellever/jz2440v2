@@ -1,0 +1,4 @@
+rootfs.jffs2
+rootfs.yaffs2
+
+rootfs/test/
