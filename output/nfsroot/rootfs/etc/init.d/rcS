@@ -1,7 +1,3 @@
-mkdir -p /sys
-mkdir -p /dev
-# mount proc filesystem to specified directory /proc
-mkdir -p /proc
 #mount -t proc none /proc
 # depends on /etc/fstab
 mount -a
