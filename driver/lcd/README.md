@@ -3,6 +3,7 @@
 ```
 0. 编译LCD内核模块
 $ make && make clean
+$ cp -fp lcd.ko $NFS_ROOT_PATH/rootfs/test/lcd/
 
 
 1. 使用make menuconfig命令将原来的驱动程序去掉 (由原先编译进内核修改为编译成模块)
