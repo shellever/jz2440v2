@@ -62,7 +62,9 @@ static struct pin_desc *irq_pd;
 static irqreturn_t key_isr(int irq, void *dev_id)
 {
     irq_pd = (struct pin_desc *)dev_id;
-    mod_timer(&key_timer, jiffies+HZ/100);  // 10ms
+    //mod_timer(&key_timer, jiffies+HZ/100);  // 10ms
+    printk(KERN_INFO "call %s: jiffies = %lu, HZ = %d\n", __func__, jiffies, HZ);
+    mod_timer(&key_timer, jiffies+msecs_to_jiffies(10));  // 10ms
 
     return IRQ_HANDLED;
 }
@@ -176,6 +178,8 @@ static void key_timer_func(unsigned long data)
     struct pin_desc *pindesc = irq_pd;
     if (!pindesc)
         return;
+
+    printk(KERN_INFO "call %s: jiffies = %lu, HZ = %d\n", __func__, jiffies, HZ);
 
     if (s3c2410_gpio_getpin(pindesc->pin)) {
         key_val = 0x80 | pindesc->key_val;  // no pressed
