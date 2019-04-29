@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     fds[0].fd = fd;
     fds[0].events = POLLIN;
     while (1) {
-        ret = poll(fds, 1, 5000);   // timeout 5000ms
+        ret = poll(fds, 1, -1);   // -1 - wait forever, timeout 5000ms
         if (ret == 0) {
             printf("polling timeout\n");
             continue;
