@@ -29,6 +29,7 @@ document    - 相关电子文档
 // maybe should setup postBuffer 2GB firstly
 $ git config --global http.postBuffer 2000000000
 $ git clone https://github.com/shellever/jz2440v2.git
+$ cd jz2440v2
 $ source build/envsetup.sh
 ```
 
