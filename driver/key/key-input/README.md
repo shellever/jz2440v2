@@ -6,7 +6,7 @@ $ make && make clean
 
 安装驱动模块
 # insmod key-input.ko
-input: Unspecified device as /class/input/input1
+input: gpio-keys as /class/input/input1
 
 查看已安装模块信息
 # lsmod
