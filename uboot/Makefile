@@ -29,12 +29,12 @@ help:
 	@echo "Copyright (C) 2019 Shellever <shellever@163.com>"
 	@echo "supported targets below:"
 	@echo
-	@echo " all       		- build all targets"
-	@echo " u-boot-1.1.6	- build bootloader u-boot-1.1.6"
-	@echo " archive   		- archive image file into output directory"
-	@echo " clean     		- clean intermediate files"
-	@echo " distclean 		- clean intermediate files and target"
-	@echo " help      		- print help information"
+	@echo " all             - build all targets"
+	@echo " u-boot-1.1.6    - build bootloader u-boot-1.1.6"
+	@echo " archive         - archive image file into output directory"
+	@echo " clean           - clean intermediate files"
+	@echo " distclean       - clean intermediate files and target"
+	@echo " help            - print help information"
 	@echo
 	@echo "to make a target, do 'make <target>'"
 	@echo "===========================End==============================="
