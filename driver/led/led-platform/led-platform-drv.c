@@ -98,10 +98,12 @@ static int led_platform_probe(struct platform_device *pdev)
 
     printk(KERN_DEBUG "enter %s\n", __func__);
 
+    // get gpio group - GPF
     res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
     gpio_con = ioremap(res->start, res->end - res->start + 1);
     gpio_dat = gpio_con + 1;
 
+    // get gpio number - GPF5
     res = platform_get_resource(pdev, IORESOURCE_IRQ, 0);
     pin = res->start;
 
@@ -118,7 +120,7 @@ static int led_platform_probe(struct platform_device *pdev)
         printk(KERN_ERR "class create failed\n");
         goto fail_class_create;
     }
-    // /sys/class/led/led-simple --mdev(busybox)--> /dev/led-simple
+    // /sys/class/led/led-platform --mdev(busybox)--> /dev/led-platform
     led_platform_class_device = class_device_create(led_platform_class, NULL, MKDEV(major, 0), NULL, DEVICE_NAME);
     if (IS_ERR(led_platform_class_device)) {
         printk(KERN_ERR "class device create failed\n");
@@ -154,7 +156,7 @@ struct platform_driver led_pdrv = {
     .probe = led_platform_probe,
     .remove = led_platform_remove,
     .driver = {
-        .name = "led-platform",     // match for platform_device name
+        .name = "led-platform",     // match for platform_device's name
     },
 };
 
