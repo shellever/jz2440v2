@@ -41,7 +41,8 @@ static struct timer_list key_timer;
 static irqreturn_t key_isr(int irq, void *dev_id)
 {
     irq_pd = (struct pin_desc *)dev_id;
-    mod_timer(&key_timer, jiffies+HZ/100);  // 10ms
+    //mod_timer(&key_timer, jiffies+HZ/100);  // 10ms
+    mod_timer(&key_timer, jiffies+msecs_to_jiffies(10));  // 10ms
 
     return IRQ_HANDLED;
 }
