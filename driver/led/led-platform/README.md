@@ -19,8 +19,8 @@ led_platform_dev        1888  0
 # rmmod led_platform_dev
 
 测试程序
-# ./led-platform-test on      // 点亮LED D11
-# ./led-platform-test off     // 熄灭LED D11
+# ./led-platform-test.out on      // 点亮LED D11
+# ./led-platform-test.out off     // 熄灭LED D11
 ```
                                                                                 
 
