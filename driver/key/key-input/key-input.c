@@ -93,7 +93,7 @@ static int __init key_input_init(void)
         return -ENOMEM;
 
     // name
-    // key_input_dev->name = "keys";
+    key_input_dev->name = "gpio-keys";
 
     // event
     set_bit(EV_KEY, key_input_dev->evbit);
