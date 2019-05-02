@@ -1,4 +1,7 @@
 rootfs.jffs2
 rootfs.yaffs2
 
-rootfs/test/
+rootfs/test/*
+!*/test/hello/
+!*/test/sqlite/
+
