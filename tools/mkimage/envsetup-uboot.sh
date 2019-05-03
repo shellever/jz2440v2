@@ -9,6 +9,7 @@ Q_UBOOT_PATH_CUR=$(cd $(dirname "${BASH_SOURCE}") && pwd)
 Q_WORK_DIR_CUR=$(pwd)
 
 
+OLDPWD_BAK=${OLDPWD}
 # ===>enter
 cd $Q_UBOOT_PATH_CUR
 
@@ -20,6 +21,7 @@ export PATH=$UBOOT_TOOLS_PATH:$PATH
 
 # <===exit
 cd $Q_WORK_DIR_CUR
+export OLDPWD=${OLDPWD_BAK}
 
 # exported cmds
 # mkimage

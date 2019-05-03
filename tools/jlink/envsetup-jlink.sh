@@ -13,6 +13,8 @@ JLINK_V635G="JLink_Linux_V635g_x86_64"
 JLINK_V500E="JLink_Linux_V500e_x86_64"
 JLINK_V=$JLINK_V500E
 
+
+OLDPWD_BAK=${OLDPWD}
 # ===>enter
 cd $Q_JLINK_PATH_CUR
 
@@ -30,4 +32,5 @@ fi
 
 # <===exit
 cd $Q_WORK_DIR_CUR
+export OLDPWD=${OLDPWD_BAK}
 

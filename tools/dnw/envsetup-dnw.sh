@@ -10,6 +10,8 @@ Q_WORK_DIR_CUR=$(pwd)
 
 DNW_ZIP_NAME="quokka-dnw-master"
 
+
+OLDPWD_BAK=${OLDPWD}
 # ===>enter
 cd $Q_DNW_PATH_CUR
 
@@ -30,6 +32,7 @@ export PATH=$DNW_PATH:$PATH
 
 # <===exit
 cd $Q_WORK_DIR_CUR
+export OLDPWD=${OLDPWD_BAK}
 
 
 # usage:

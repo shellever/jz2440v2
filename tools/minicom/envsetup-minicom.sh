@@ -14,6 +14,7 @@ MINIRC_DEFAULT="minirc.dfl"
 MINIRC_TTYUSB0="minirc.ttyusb0"
 
 
+OLDPWD_BAK=${OLDPWD}
 # ===>enter
 cd $Q_MINICOM_PATH_CUR
 
@@ -43,6 +44,7 @@ alias minicom='minicom -w'
 
 # <===exit
 cd $Q_WORK_DIR_CUR
+export OLDPWD=${OLDPWD_BAK}
 
 
 # configs interface

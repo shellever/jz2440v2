@@ -9,6 +9,10 @@ Q_TFTP_PATH_CUR=$(cd $(dirname "${BASH_SOURCE}") && pwd)
 Q_WORK_DIR_CUR=$(pwd)
 
 
+OLDPWD_BAK=${OLDPWD}
+# ===>enter
+cd $Q_TFTP_PATH_CUR
+
 # exported directory of tftp
 TFTP_ROOT_PATH="$LINUX_ARM_ROOT_PATH/output/tftpboot"
 if [ ! -e $TFTP_ROOT_PATH ]; then
@@ -34,6 +38,10 @@ sudo service tftpd-hpa restart
 # }}}
 fi
 
+# <===exit
+cd $Q_WORK_DIR_CUR
+export OLDPWD=${OLDPWD_BAK}
+
 
 # examples for get file
 # cd ~/workspace/jz2440v2/output/tftpboot
@@ -43,4 +51,5 @@ fi
 # tftp> get firstme.txt
 # tftp> quit
 # cat firstme.txt
+
 

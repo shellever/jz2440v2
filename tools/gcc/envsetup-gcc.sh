@@ -17,6 +17,8 @@ ARM_LINUX_GCC_RAW_PATH="gcc-3.4.5-glibc-2.3.6"
 ARM_LINUX_GCC="arm-linux-gcc-3.4.5"
 TARFLAGS="-jxvf"
 
+
+OLDPWD_BAK=${OLDPWD}
 # ===>enter
 cd $Q_GCC_PATH_CUR
 
@@ -31,6 +33,7 @@ export LINUX_ARM_TOOLS_GCC_PATH="$Q_GCC_PATH_CUR/$ARM_LINUX_GCC"
 
 # <===exit
 cd $Q_WORK_DIR_CUR
+export OLDPWD=${OLDPWD_BAK}
 
 
 # exported cmds

@@ -9,6 +9,7 @@ Q_MKJFFS_PATH_CUR=$(cd $(dirname "${BASH_SOURCE}") && pwd)
 Q_WORK_DIR_CUR=$(pwd)
 
 
+OLDPWD_BAK=${OLDPWD}
 # ===>enter
 cd $Q_MKJFFS_PATH_CUR
 
@@ -22,4 +23,5 @@ export PATH=$MKJFFS_PATH:$PATH
 
 # <===exit
 cd $Q_WORK_DIR_CUR
+export OLDPWD=${OLDPWD_BAK}
 
