@@ -21,7 +21,7 @@ if [ ! -e /etc/exports ]; then
     sudo apt-get install -y nfs-kernel-server
 fi
 
-grep -rin ${NFS_ROOT_PATH} /etc/exports > /dev/null 2>&1
+grep "${NFS_ROOT_PATH}" /etc/exports > /dev/null 2>&1
 if [ $? -eq 0 ]; then
     return 0
 fi
@@ -30,7 +30,7 @@ fi
 sudo bash -c "cat >> /etc/exports << EOF
 
 # nfs workspace for jz2440v2
-# `date "+%m/%d/%Y %H:%M%S"`
+# `date "+%m/%d/%Y %H:%M:%S"`
 ${NFS_ROOT_PATH} *(rw,sync,no_root_squash)
 
 EOF
