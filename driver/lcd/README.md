@@ -45,8 +45,8 @@ crw-rw----    1 0        0         29,   0 Jan  1 00:04 /dev/fb0
 
 4. 测试lcd驱动
 4.1 lcd显示测试
-# echo hello > /dev/tty1    // 可以在LCD上看到hello字符串和鼠标闪烁
-# cat lcd.ko > /dev/fb0     // 花屏，因为无法解析lcd.ko中的内容格式
+# echo hello > /dev/tty1    // 可以在LCD上看到hello字符串和下划线样式光标闪烁
+# cat lcd.ko > /dev/fb0     // 上半部分会花屏，因为无法解析lcd.ko中的内容格式
 
 4.2 lcd中打开sh并进行按键输入测试
 修改/etc/inittab，增加以下配置行，然后重启系统，然后进入uboot重新烧写内核到SDRAM，并直接启动内核
@@ -66,6 +66,25 @@ cfbfillrect             3552  1 lcd
 cfbcopyarea             3296  1 lcd
 
 然后按 S4 按键执行回车命令，使LCD进入sh环境
+再依次按 S2 S3 S4 按键来执行 ls+Enter 命令，即可在LCD上显示当前目录内容
+
+
+
+// 05/04/2019
+// 使用脚本来自动安装ko模块
+首先按回车键进入串口命令行终端，然后使用脚本来自动安装ko模块
+/test/lcd # ./test-lcd.sh
+Console: switching to colour frame buffer device 60x34
+input: gpio-keys as /class/input/input1
+
+安装完成后会在lcd显示屏上显示一行提示：
+Please press Enter to activate this comsole. _(光标闪烁)
+
+然后再按下 S4 即回车键后，lcd显示屏进入shell环境
+Please press Enter to activate this comsole.
+starting pid 767, tty '/dev/tty1': '/bin/sh'
+/ # _(光标闪烁)
+
 再依次按 S2 S3 S4 按键来执行 ls+Enter 命令，即可在LCD上显示当前目录内容
 ```
 
