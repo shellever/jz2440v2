@@ -1,5 +1,4 @@
 KERN_DIR ?= $(KERNEL_ROOT_PATH)
-#KERN_DIR ?= $(LINUX_ARM_ROOT_PATH)/kernel/linux-2.6.22.6-usb
 PWD := $(shell pwd)
 
 CROSS_COMPILE = arm-linux-
