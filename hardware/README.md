@@ -19,9 +19,6 @@ sdram       -- sdram使用
 stdio       -- 标准输入输出
 timer       -- 定时器使用
 uart        -- 串口使用
-
-
-hardware.tar.bz2    -- 原始裸板程序的备份压缩文件
 ```
 
 
