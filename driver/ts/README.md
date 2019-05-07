@@ -10,6 +10,7 @@ Device Drivers  --->
 
 重新编译内核镜像文件uImage及lcd驱动依赖的相关模块
 $ make uImage
+$ make modules
 $ mkdir -p $NFS_ROOT_PATH/rootfs/test/ts/
 $ cp -fp arch/arm/boot/uImage $NFS_ROOT_PATH/rootfs/test/ts/
 $ cp -fp drivers/video/cfbcopyarea.ko $NFS_ROOT_PATH/rootfs/test/ts/
