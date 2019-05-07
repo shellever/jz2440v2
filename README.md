@@ -3,6 +3,7 @@
 ```
 主机系统：  Ubuntu 16.04 LTS 
 开发板型号：jz2440v2
+开发工具：  vim (install through quokka-vim)
 ```
 
 
