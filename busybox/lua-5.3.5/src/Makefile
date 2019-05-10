@@ -6,13 +6,14 @@
 # Your platform. See PLATS for possible values.
 PLAT= none
 
-CC= gcc -std=gnu99
+CROSS_COMPILE= arm-linux-
+CC= $(CROSS_COMPILE)gcc -std=gnu99
 CFLAGS= -O2 -Wall -Wextra -DLUA_COMPAT_5_2 $(SYSCFLAGS) $(MYCFLAGS)
 LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS)
 LIBS= -lm $(SYSLIBS) $(MYLIBS)
 
-AR= ar rcu
-RANLIB= ranlib
+AR= $(CROSS_COMPILE)ar rcu
+RANLIB= $(CROSS_COMPILE)ranlib
 RM= rm -f
 
 SYSCFLAGS=
@@ -26,7 +27,7 @@ MYOBJS=
 
 # == END OF USER SETTINGS -- NO NEED TO CHANGE ANYTHING BELOW THIS LINE =======
 
-PLATS= aix bsd c89 freebsd generic linux macosx mingw posix solaris
+PLATS= aix bsd c89 freebsd generic linux macosx mingw posix solaris arm-linux
 
 LUA_A=	liblua.a
 CORE_O=	lapi.o lcode.o lctype.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o \
@@ -108,6 +109,9 @@ generic: $(ALL)
 
 linux:
 	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_LINUX" SYSLIBS="-Wl,-E -ldl -lreadline"
+
+arm-linux:
+	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_LINUX -DLUA_USE_ARM_LINUX" SYSLIBS="-Wl,-E -ldl"
 
 macosx:
 	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_MACOSX" SYSLIBS="-lreadline"
