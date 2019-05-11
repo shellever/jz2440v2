@@ -29,6 +29,7 @@ MYOBJS=
 
 PLATS= aix bsd c89 freebsd generic linux macosx mingw posix solaris arm-linux
 
+LUA_SO=	liblua.so
 LUA_A=	liblua.a
 CORE_O=	lapi.o lcode.o lctype.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o \
 	lmem.o lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o \
@@ -44,8 +45,9 @@ LUAC_T=	luac
 LUAC_O=	luac.o
 
 ALL_O= $(BASE_O) $(LUA_O) $(LUAC_O)
-ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T)
+ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T) $(LUA_SO)
 ALL_A= $(LUA_A)
+ALL_SO= $(LUA_SO)
 
 # Targets start here.
 default: $(PLAT)
@@ -56,9 +58,14 @@ o:	$(ALL_O)
 
 a:	$(ALL_A)
 
+s: $(ALL_SO)
+
 $(LUA_A): $(BASE_O)
 	$(AR) $@ $(BASE_O)
 	$(RANLIB) $@
+
+$(LUA_SO): $(BASE_O)
+	$(CC) -o $@ -fPIC -shared -ldl -lm $(BASE_O)
 
 $(LUA_T): $(LUA_O) $(LUA_A)
 	$(CC) -o $@ $(LDFLAGS) $(LUA_O) $(LUA_A) $(LIBS)
