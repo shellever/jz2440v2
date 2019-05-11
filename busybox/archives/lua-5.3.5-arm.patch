@@ -1,0 +1,101 @@
+diff -urN lua-5.3.5/Makefile lua-5.3.5-arm/Makefile
+--- lua-5.3.5/Makefile	2016-12-21 00:26:08.000000000 +0800
++++ lua-5.3.5-arm/Makefile	2019-05-11 00:56:36.961360422 +0800
+@@ -36,12 +36,12 @@
+ # == END OF USER SETTINGS -- NO NEED TO CHANGE ANYTHING BELOW THIS LINE =======
+ 
+ # Convenience platforms targets.
+-PLATS= aix bsd c89 freebsd generic linux macosx mingw posix solaris
++PLATS= aix bsd c89 freebsd generic linux macosx mingw posix solaris arm-linux
+ 
+ # What to install.
+ TO_BIN= lua luac
+ TO_INC= lua.h luaconf.h lualib.h lauxlib.h lua.hpp
+-TO_LIB= liblua.a
++TO_LIB= liblua.a liblua.so
+ TO_MAN= lua.1 luac.1
+ 
+ # Lua version and release.
+diff -urN lua-5.3.5/src/luaconf.h lua-5.3.5-arm/src/luaconf.h
+--- lua-5.3.5/src/luaconf.h	2017-04-20 01:29:57.000000000 +0800
++++ lua-5.3.5-arm/src/luaconf.h	2019-05-11 00:42:13.567828774 +0800
+@@ -61,8 +61,10 @@
+ #if defined(LUA_USE_LINUX)
+ #define LUA_USE_POSIX
+ #define LUA_USE_DLOPEN		/* needs an extra library: -ldl */
++#if !defined(LUA_USE_ARM_LINUX)
+ #define LUA_USE_READLINE	/* needs some extra libraries */
+ #endif
++#endif
+ 
+ 
+ #if defined(LUA_USE_MACOSX)
+diff -urN lua-5.3.5/src/Makefile lua-5.3.5-arm/src/Makefile
+--- lua-5.3.5/src/Makefile	2018-06-26 01:46:36.000000000 +0800
++++ lua-5.3.5-arm/src/Makefile	2019-05-11 12:03:56.243646816 +0800
+@@ -6,13 +6,14 @@
+ # Your platform. See PLATS for possible values.
+ PLAT= none
+ 
+-CC= gcc -std=gnu99
++CROSS_COMPILE= arm-linux-
++CC= $(CROSS_COMPILE)gcc -std=gnu99
+ CFLAGS= -O2 -Wall -Wextra -DLUA_COMPAT_5_2 $(SYSCFLAGS) $(MYCFLAGS)
+ LDFLAGS= $(SYSLDFLAGS) $(MYLDFLAGS)
+ LIBS= -lm $(SYSLIBS) $(MYLIBS)
+ 
+-AR= ar rcu
+-RANLIB= ranlib
++AR= $(CROSS_COMPILE)ar rcu
++RANLIB= $(CROSS_COMPILE)ranlib
+ RM= rm -f
+ 
+ SYSCFLAGS=
+@@ -26,8 +27,9 @@
+ 
+ # == END OF USER SETTINGS -- NO NEED TO CHANGE ANYTHING BELOW THIS LINE =======
+ 
+-PLATS= aix bsd c89 freebsd generic linux macosx mingw posix solaris
++PLATS= aix bsd c89 freebsd generic linux macosx mingw posix solaris arm-linux
+ 
++LUA_SO=	liblua.so
+ LUA_A=	liblua.a
+ CORE_O=	lapi.o lcode.o lctype.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o \
+ 	lmem.o lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o \
+@@ -43,8 +45,9 @@
+ LUAC_O=	luac.o
+ 
+ ALL_O= $(BASE_O) $(LUA_O) $(LUAC_O)
+-ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T)
++ALL_T= $(LUA_A) $(LUA_T) $(LUAC_T) $(LUA_SO)
+ ALL_A= $(LUA_A)
++ALL_SO= $(LUA_SO)
+ 
+ # Targets start here.
+ default: $(PLAT)
+@@ -55,10 +58,15 @@
+ 
+ a:	$(ALL_A)
+ 
++s: $(ALL_SO)
++
+ $(LUA_A): $(BASE_O)
+ 	$(AR) $@ $(BASE_O)
+ 	$(RANLIB) $@
+ 
++$(LUA_SO): $(BASE_O)
++	$(CC) -o $@ -fPIC -shared -ldl -lm $(BASE_O)
++
+ $(LUA_T): $(LUA_O) $(LUA_A)
+ 	$(CC) -o $@ $(LDFLAGS) $(LUA_O) $(LUA_A) $(LIBS)
+ 
+@@ -109,6 +117,9 @@
+ linux:
+ 	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_LINUX" SYSLIBS="-Wl,-E -ldl -lreadline"
+ 
++arm-linux:
++	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_LINUX -DLUA_USE_ARM_LINUX" SYSLIBS="-Wl,-E -ldl"
++
+ macosx:
+ 	$(MAKE) $(ALL) SYSCFLAGS="-DLUA_USE_MACOSX" SYSLIBS="-lreadline"
+ 
