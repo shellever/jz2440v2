@@ -58,8 +58,8 @@ distclean:
 
 # two-dimensional operation
 # such as:
-# make clean/busy-1.7.0
-# make distclean/busy-1.7.0
+# make clean/busybox-1.7.0
+# make distclean/busybox-1.7.0
 CLEANDIRS := $(addprefix clean/, $(SUBDIRS))
 
 $(CLEANDIRS):
