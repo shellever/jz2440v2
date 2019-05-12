@@ -4,4 +4,5 @@ rootfs.yaffs2
 rootfs/test/*
 !*/test/hello/
 !*/test/sqlite/
+!*/test/lua/
 
