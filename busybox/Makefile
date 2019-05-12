@@ -85,7 +85,7 @@ help:
 	@echo " all                        - build all targets"
 	@echo " busybox-1.7.0              - build filesystem busybox-1.7.0"
 	@echo " sqlite-autoconf-3280000    - build database sqlite-autoconf-3280000"
-	@echo " lua-5.3.5                  - build database lua-5.3.5"
+	@echo " lua-5.3.5                  - build programming language lua-5.3.5"
 	@echo " clean                      - clean intermediate files"
 	@echo " distclean                  - clean intermediate files and target"
 	@echo " help                       - print help information"
