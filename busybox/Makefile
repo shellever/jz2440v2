@@ -5,11 +5,13 @@
 BUSYBOX_170 := busybox-1.7.0
 SQLITE_328 := sqlite-autoconf-3280000
 LUA_535 := lua-5.3.5
+DOSFSTOOLS := dosfstools-2.11
 
 DIR = .
 SUBDIRS = $(BUSYBOX_170)
 SUBDIRS += $(SQLITE_328)
 SUBDIRS += $(LUA_535)
+SUBDIRS += $(DOSFSTOOLS)
 
 
 all: $(SUBDIRS)
@@ -41,6 +43,14 @@ $(LUA_535):
 	make INSTALL_TOP=$$install_dir install; \
 	ls $$install_dir
 
+$(DOSFSTOOLS):
+	@echo compiling $@...
+	cd $@; \
+	install_dir=$$LINUX_ARM_ROOT_PATH/output/busybox/dosfstools/$@; \
+	mkdir -p $$install_dir; \
+	make CC=arm-linux-gcc; \
+	make PREFIX=$$DOSFSTOOLS install; \
+	ls $$install_dir
 
 # one-dimensional operation
 # such as:
@@ -86,6 +96,7 @@ help:
 	@echo " busybox-1.7.0              - build filesystem busybox-1.7.0"
 	@echo " sqlite-autoconf-3280000    - build database sqlite-autoconf-3280000"
 	@echo " lua-5.3.5                  - build programming language lua-5.3.5"
+	@echo " dosfstools-2.11            - build MS-DOS FAT Filesystems tools dosfstools-2.11"
 	@echo " clean                      - clean intermediate files"
 	@echo " distclean                  - clean intermediate files and target"
 	@echo " help                       - print help information"
