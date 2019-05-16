@@ -5,13 +5,13 @@
 BUSYBOX_170 := busybox-1.7.0
 SQLITE_328 := sqlite-autoconf-3280000
 LUA_535 := lua-5.3.5
-DOSFSTOOLS := dosfstools-2.11
+DOSFSTOOLS_211 := dosfstools-2.11
 
 DIR = .
 SUBDIRS = $(BUSYBOX_170)
 SUBDIRS += $(SQLITE_328)
 SUBDIRS += $(LUA_535)
-SUBDIRS += $(DOSFSTOOLS)
+SUBDIRS += $(DOSFSTOOLS_211)
 
 
 all: $(SUBDIRS)
@@ -43,7 +43,7 @@ $(LUA_535):
 	make INSTALL_TOP=$$install_dir install; \
 	ls $$install_dir
 
-$(DOSFSTOOLS):
+$(DOSFSTOOLS_211):
 	@echo compiling $@...
 	cd $@; \
 	install_dir=$$LINUX_ARM_ROOT_PATH/output/busybox/dosfstools/$@; \
