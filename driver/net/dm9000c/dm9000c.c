@@ -1653,43 +1653,36 @@ int __init dm9000c_init(void)
     iobase = (int)ioremap(0x20000000, 1024);    // #CS - nGCS4
     irq    = IRQ_EINT7;                         // INT - EINT7/GPF7
 
-
-    /* S3C2440 memory controller */
+    // S3C2440 memory controller
     bwscon   = ioremap(0x48000000, 4);
     bankcon4 = ioremap(0x48000014, 4);
 
-    /* DW4[17:16]: 01-16bit
-     * WS4[18]   : 0-WAIT disable
-     * ST4[19]   : 0 = Not using UB/LB (The pins are dedicated nWBE[3:0])
-     */
+    // Bus width & wait status control register
+    // DW4[17:16] - Determine data bus width for bank 4 
+    //              01 = 16bit
+    // WS4[18]    - Determines WAIT status for bank 4
+    //              0 = WAIT disable
+    // ST4[19]    - Determines SRAM for using UB/LB for bank 4
+    //              0 = Not using UB/LB (The pins are dedicated nWBE[3:0])
     val = *bwscon;
-    val &= ~(0xf<<16);
-    val |= (1<<16);
+    val &= ~(0xF << 16);
+    val |= (1 << 16);
     *bwscon = val;
 
-    /*
-     * Tacs[14:13]: 发出片选信号之前,多长时间内要先发出地址信号
-     *              DM9000C的片选信号和CMD信号可以同时发出,
-     *              所以它设为0
-     * Tcos[12:11]: 发出片选信号之后,多长时间才能发出读信号nOE
-     *              DM9000C的T1>=0ns, 
-     *              所以它设为0
-     * Tacc[10:8] : 读写信号的脉冲长度, 
-     *              DM9000C的T2>=10ns, 
-     *              所以它设为1, 表示2个hclk周期,hclk=100MHz,就是20ns
-     * Tcoh[7:6]  : 当读信号nOE变为高电平后,片选信号还要维持多长时间
-     *              DM9000C进行写操作时, nWE变为高电平之后, 数据线上的数据还要维持最少3ns
-     *              DM9000C进行读操作时, nOE变为高电平之后, 数据线上的数据在6ns之内会消失
-     *              我们取一个宽松值: 让片选信号在nOE放为高电平后,再维持10ns, 
-     *              所以设为01
-     * Tcah[5:4]  : 当片选信号变为高电平后, 地址信号还要维持多长时间
-     *              DM9000C的片选信号和CMD信号可以同时出现,同时消失
-     *              所以设为0
-     * PMC[1:0]   : 00-正常模式
-     *
-     */
-    *bankcon4 = (1<<8)|(1<<6);      /* 对于DM9000C可以设Tacc为1, 对于DM9000E,Tacc要设大一点,比如最大值7  */
-    //*bankcon4 = (7<<8)|(1<<6);    /* MINI2440使用DM9000E,Tacc要设大一点 */
+    // Bank 4 control register
+    // Tacs[14:13] - Address set-up time before nGCSn
+    //               00 = 0 clock
+    // Tcos[12:11] - Chip selection set-up time before nOE
+    //               00 = 0 clock
+    // Tacc[10:8]  - Access cycle
+    //               001 = 2 clocks (HCLK=100MHz, 2 HCLK = 20ns)
+    // Tcoh[7:6]   - Chip selection hold time after nOE
+    //               01 = 1 clock
+    // Tcah[5:4]   - Address hold time after nGCSn
+    //               00 = 0 clock
+    // PMC[1:]     - Page mode configuration
+    //               00 = normal (1 data)
+    *bankcon4 = (1 << 8) | (1 << 6);
 
     iounmap(bwscon);
     iounmap(bankcon4);
