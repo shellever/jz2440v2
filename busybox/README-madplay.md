@@ -1,6 +1,10 @@
 ## 移植madplay
 
 ```
+下载源码包
+ftp://ftp.mars.org/pub/mpeg/
+http://www.zlib.net/
+
 0. 编译 zlib-1.2.3 库
 $ tar -zxvf zlib-1.2.3.tar.gz
 $ cd zlib-1.2.3
