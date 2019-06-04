@@ -1137,7 +1137,7 @@ static void init_s3c2410_iis_bus_tx(void)
 	__raw_writel(iiscon, iis_base + S3C2410_IISCON);
 }
 
-static int __init audio_init_dma(audio_stream_t * s, char *desc)
+static int audio_init_dma(audio_stream_t * s, char *desc)
 {
 	int ret ;
 	enum s3c2410_dmasrc source;
