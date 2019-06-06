@@ -110,6 +110,7 @@ help:
 	@echo " sqlite-autoconf-3280000    - build database sqlite-autoconf-3280000"
 	@echo " lua-5.3.5                  - build programming language lua-5.3.5"
 	@echo " dosfstools-2.11            - build MS-DOS FAT Filesystems tools dosfstools-2.11"
+	@echo " mtd-utils-05.07.23         - build mtd tools mtd-utils-05.07.23"
 	@echo " clean                      - clean intermediate files"
 	@echo " distclean                  - clean intermediate files and target"
 	@echo " help                       - print help information"
