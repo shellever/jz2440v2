@@ -6,12 +6,14 @@ BUSYBOX_170 := busybox-1.7.0
 SQLITE_328 := sqlite-autoconf-3280000
 LUA_535 := lua-5.3.5
 DOSFSTOOLS_211 := dosfstools-2.11
+MTD_UTILS_050723 := mtd-utils-05.07.23
 
 DIR = .
 SUBDIRS = $(BUSYBOX_170)
 SUBDIRS += $(SQLITE_328)
 SUBDIRS += $(LUA_535)
 SUBDIRS += $(DOSFSTOOLS_211)
+SUBDIRS += $(MTD_UTILS_050723)
 
 
 all: $(SUBDIRS)
@@ -51,6 +53,17 @@ $(DOSFSTOOLS_211):
 	make CC=arm-linux-gcc; \
 	make PREFIX=$$install_dir install; \
 	ls $$install_dir
+
+$(MTD_UTILS_050723):
+	@echo compiling $@...
+	cd $@/util; \
+	install_dir=$$LINUX_ARM_ROOT_PATH/output/busybox/mtd/$@/util; \
+	mkdir -p $$install_dir; \
+	make CROSS=arm-linux- flash_erase; \
+	make CROSS=arm-linux- flash_eraseall; \
+	cp -fp flash_erase flash_eraseall $$install_dir; \
+	ls $$install_dir
+
 
 # one-dimensional operation
 # such as:
