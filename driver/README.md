@@ -14,8 +14,8 @@ uart        - 串口驱动
 usb         - USB驱动
 i2c         - I2C驱动
 spi         - SPI驱动
-
-Makefile
+debug       - 驱动调试
+watchdog    - 看门狗驱动
 ```
 
 
