@@ -346,3 +346,67 @@ hello world!
 ```
 
 
+
+## 自动挂载u盘
+
+```
+1. 插入u盘，自动打印如下信息
+# usb 1-1: new full speed USB device using s3c2410-ohci and address 2
+usb 1-1: configuration #1 chosen from 1 choice
+scsi0 : SCSI emulation for USB Mass Storage devices
+scsi 0:0:0:0: Direct-Access    Generic  STORAGE DEVICE  1404 PQ: 0 ANSI: 6
+sd 0:0:0:0: [sda] 7864320 512-byte hardware sectors (4027 MB)
+sd 0:0:0:0: [sda] Write Protect is off
+sd 0:0:0:0: [sda] Assuming drive cache: write through
+sd 0:0:0:0: [sda] 7864320 512-byte hardware sectors (4027 MB)
+sd 0:0:0:0: [sda] Write Protect is off
+sd 0:0:0:0: [sda] Assuming drive cache: write through
+sda: sda1
+sd 0:0:0:0: [sda] Attached SCSI removable disk
+
+拔出u盘，自动打印如下信息
+# usb 1-1: USB disconnect, address 2
+
+2. 查看u盘设备文件
+# ls -l /dev/sda*
+brw-rw----    1 0        0          8,  0 Jan  1 01:44 /dev/sda
+brw-rw----    1 0        0          8,  1 Jan  1 01:44 /dev/sda1
+
+3. 手动挂载u盘到指定目录下
+# mkdir -p /mnt/udisk
+# mount /dev/sda1 /mnt/udisk
+
+4. 查看u盘的内容
+# ls -l /mnt/udisk
+-rwxr-xr-x    1 0        0              82 Mar  5  2019 firstme.txt
+
+5. 自动挂载u盘配置
+5.1 配置mdev
+$ vi etc/mdev.conf
+sda[1-9]+ 0:0 777 * /bin/udisk_auto_mount.sh
+
+5.2 创建挂载操作脚本
+$ vi bin/udisk_auto_mount.sh
+#!/bin/sh
+
+echo "\$ACTION=$ACTION"
+echo "\$MDEV=$MDEV"
+
+if [ $ACTION = "add" ]; then
+    mkdir -p /mnt/udisk
+    mount /dev/$MDEV /mnt/udisk
+else
+    umount /mnt/udisk
+    rm -rf /mnt/udisk
+fi
+
+5.3 重启系统后，插入u盘，查看/mnt目录，自动创建/mnt/udisk目录，并挂载
+# ls -l /mnt
+drwxrwxrwx    2 0        0          32768 Jan  1 00:00 udisk
+
+5.4 拔出u盘后，查看/mnt目录，自动卸载并删除udisk目录
+# ls -l /mnt
+#
+```
+
+
