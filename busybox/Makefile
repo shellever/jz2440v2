@@ -49,7 +49,7 @@ $(DOSFSTOOLS_211):
 	install_dir=$$LINUX_ARM_ROOT_PATH/output/busybox/dosfstools/$@; \
 	mkdir -p $$install_dir; \
 	make CC=arm-linux-gcc; \
-	make PREFIX=$$DOSFSTOOLS install; \
+	make PREFIX=$$install_dir install; \
 	ls $$install_dir
 
 # one-dimensional operation
