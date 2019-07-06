@@ -247,6 +247,7 @@ static struct platform_device __initdata *smdk_devs[] = {
 	&smdk_led5,
 	&smdk_led6,
 	&smdk_led7,
+    &s3c_device_rtc,
 #if defined(CONFIG_DM9000) || defined(CONFIG_DM9000_MODULE)
     &s3c_device_dm9k,
 #endif    
