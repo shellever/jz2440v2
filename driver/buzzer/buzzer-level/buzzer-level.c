@@ -13,8 +13,8 @@
 
 #define DEBUG_ENABLE        1
 #define LOG_PREFIX          "[debug] "
-#define dprintk(msg...)		do { \
-	if (DEBUG_ENABLE) printk(KERN_INFO LOG_PREFIX msg);	\
+#define dprintk(msg...)     do { \
+    if (DEBUG_ENABLE) printk(KERN_INFO LOG_PREFIX msg); \
 } while (0)
 
 // linux-2.6.22.6/drivers/net/spider_net.h
@@ -129,7 +129,7 @@ static int __init buzzer_level_init(void)
 
     buzzer_dev = kzalloc(sizeof(struct buzzer_dev), GFP_KERNEL);
     if (buzzer_dev == NULL) {
-		pr_err("%s : kmalloc failed\n", __func__);
+        pr_err("%s : kmalloc failed\n", __func__);
         ret = -ENOMEM;
         goto err0;
     }
@@ -140,7 +140,7 @@ static int __init buzzer_level_init(void)
     /* ctrl_gpio */
     ret = gpio_request(BUZZER_IO, "ctrl_gpio");
     if (ret) {
-		pr_err("%s : gpio_request failed\n", __func__);
+        pr_err("%s : gpio_request failed\n", __func__);
         goto err1;
     }
     buzzer_dev->ctrl_gpio = BUZZER_IO;
@@ -156,14 +156,14 @@ static int __init buzzer_level_init(void)
     add_timer(&buzzer_dev->buzzer_timer);
     dprintk("call %s: init timer success\n", __func__);
 
-	/* register as a misc device */
-	buzzer_dev->buzzer_device.minor = MISC_DYNAMIC_MINOR;
-	buzzer_dev->buzzer_device.name = BUZZER_DEVICE_NAME;
-	buzzer_dev->buzzer_device.fops = &buzzer_level_fops;
-	ret = misc_register(&buzzer_dev->buzzer_device);
-	if (ret) {
-		pr_err("%s : misc_register failed\n", __func__);
-		goto err2;
+    /* register as a misc device */
+    buzzer_dev->buzzer_device.minor = MISC_DYNAMIC_MINOR;
+    buzzer_dev->buzzer_device.name = BUZZER_DEVICE_NAME;
+    buzzer_dev->buzzer_device.fops = &buzzer_level_fops;
+    ret = misc_register(&buzzer_dev->buzzer_device);
+    if (ret) {
+        pr_err("%s : misc_register failed\n", __func__);
+        goto err2;
     }
     dprintk("call %s: misc_register success\n", __func__);
 
