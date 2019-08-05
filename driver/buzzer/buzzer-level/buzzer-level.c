@@ -37,11 +37,16 @@
 
 #define BUZZER_IOC_MAGIC        'b'
 #define BUZZER_IOC_WR_BEEP_CTRL _IOW(BUZZER_IOC_MAGIC, 1, unsigned int)
-#define BUZZER_DEVICE           "/dev/buzzer-level"
+#define BUZZER_DEVICE_NAME      "buzzer-level"  // /dev/buzzer-level
 
 #define BUZZER_BEEP_MODE_ON     0x01
 #define BUZZER_BEEP_MODE_OFF    0x02
 #define BUZZER_BEEP_MODE_MS     0x03
+
+// EINT20/GPG12
+// nGCS3/GPA14
+//#define BUZZER_IO   S3C2410_GPG12
+#define BUZZER_IO   S3C2410_GPA14
 
 
 struct buzzer_dev {
@@ -130,13 +135,15 @@ static int __init buzzer_level_init(void)
     }
     dprintk("call %s: kmalloc success\n", __func__);
 
+    //s3c2410_gpio_cfgpin(BUZZER_IO, S3C2410_GPIO_OUTPUT);
+
     /* ctrl_gpio */
-    ret = gpio_request(S3C2410_GPG12, "ctrl_gpio");
+    ret = gpio_request(BUZZER_IO, "ctrl_gpio");
     if (ret) {
 		pr_err("%s : gpio_request failed\n", __func__);
         goto err1;
     }
-    buzzer_dev->ctrl_gpio = S3C2410_GPG12;
+    buzzer_dev->ctrl_gpio = BUZZER_IO;
     //s3c2410_gpio_cfgpin(buzzer_dev->ctrl_gpio, S3C2410_GPIO_OUTPUT);
     //s3c2410_gpio_setpin(buzzer_dev->ctrl_gpio, BUZZER_OFF);     // off by default
     gpio_direction_output(buzzer_dev->ctrl_gpio, BUZZER_OFF);   // off by default
@@ -151,7 +158,7 @@ static int __init buzzer_level_init(void)
 
 	/* register as a misc device */
 	buzzer_dev->buzzer_device.minor = MISC_DYNAMIC_MINOR;
-	buzzer_dev->buzzer_device.name = "buzzer-level";    // /dev/buzzer-level
+	buzzer_dev->buzzer_device.name = BUZZER_DEVICE_NAME;
 	buzzer_dev->buzzer_device.fops = &buzzer_level_fops;
 	ret = misc_register(&buzzer_dev->buzzer_device);
 	if (ret) {

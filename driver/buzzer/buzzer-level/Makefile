@@ -25,6 +25,10 @@ $(test-out): %.out: %.o
 	$(CC) $(CFLAGS) -c -o $@ $^
 
 
+copy:
+	mkdir -p $(ROOTFS_ROOT_PATH)/test/buzzer/buzzer-level
+	cp -fp *.ko *.out $(ROOTFS_ROOT_PATH)/test/buzzer/buzzer-level/
+
 clean:
 	@echo "cleaning ..."
 	rm -rf *.o *.symvers .*.d .*.cmd *.mod.c .tmp_versions
@@ -33,5 +37,5 @@ distclean: clean
 	@echo "distcleaning ..."
 	rm -f *.ko *.out
 
-.PHONY: all test clean distclean
+.PHONY: all copy test clean distclean
 
